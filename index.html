@@ -3,79 +3,610 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manifestation Lab - Symboles Sacrés & Fréquences</title>
+    <title>Manifestation Lab - Symboles SacrÃ©s & FrÃ©quences</title>
     <style>
-        * { margin:0; padding:0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #fff;
+            color: white;
             line-height: 1.6;
         }
-        .header {
-            background: rgba(0,0,0,.9);
-            padding: 1rem 2rem;
-            position: fixed; top:0; left:0; right:0;
-            z-index:1000;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { color: #ffd700; font-size:1.5rem; font-weight:bold; }
-        .nav { display: flex; gap: 1rem; }
-        .nav a {
-            color: #ffd700; text-decoration: none;
-            padding: 0.5rem 1rem; border: 1px solid #ffd700;
-            border-radius: 20px; transition: all .3s;
-        }
-        .nav a:hover { background: #ffd700; color: #1a1a2e; }
 
-        .section { padding: 6rem 2rem 4rem; max-width:1200px; margin:0 auto; }
-        .hero { text-align:center; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-        .hero h1 { font-size: 3.5rem; color: #ffd700; margin-bottom:1rem; }
-        .hero p { font-size:1.5rem; color:#00bfff; margin-bottom:2rem; font-style:italic; }
-        .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content:center; }
+        /* HEADER */
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav a {
+            color: #ffd700;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ffd700;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 6rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #00bfff;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         .btn {
-            padding: 1rem 2rem; border:none; border-radius:25px;
-            font-size:1.1rem; font-weight:bold; cursor:pointer;
-            transition:all .3s; text-decoration:none; display:inline-block;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
-        .btn-primary { background: linear-gradient(45deg,#ff6b6b,#ee5a52); color:#fff; }
-        .btn-secondary { background:transparent; border:2px solid #ffd700; color:#ffd700; }
-        .btn:hover { transform:translateY(-2px); }
-        .section-title { text-align:center; font-size:2.5rem; color:#ffd700; margin-bottom:3rem; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin-top:2rem; }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 3rem;
+        }
+
+        /* GRILLES */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
         .card {
-            background: rgba(255,255,255,.1); padding:2rem; border-radius:15px;
-            border:1px solid rgba(255,255,255,.2); transition:all .3s; text-align:center; position:relative;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            text-align: center;
         }
-        .card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,0,0,.3); }
-        .card.free-trial { border-color:#00ff88; background:rgba(0,255,136,.1);}
-        .card.premium { border-color:#ff6b6b; background:rgba(255,107,107,.1);}
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card.free-trial {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .card.premium {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
         .symbol-icon {
-            width:80px; height:80px;
-            background: linear-gradient(45deg,#ffd700,#ffed4e);
-            border-radius:50%; display:flex; align-items:center; justify-content:center;
-            font-size:2rem; margin:0 auto 1rem; cursor:pointer; transition:all .3s;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .symbol-icon:hover { transform: rotate(360deg) scale(1.1);}
-        .badge { position:absolute; top:-10px; right:-10px; padding:0.5rem; border-radius:50%; font-size:0.7rem; font-weight:bold; color:#fff; }
-        .badge-free { background:#00ff88; }
-        .badge-premium { background:#ff6b6b; }
-        .usage-counter { margin-top:1rem; padding:0.8rem; background:rgba(0,255,136,.2); border-radius:10px; color:#00ff88; font-weight:bold; }
-        .locked { position:relative; }
+
+        .symbol-icon:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge-free {
+            background: #00ff88;
+        }
+
+        .badge-premium {
+            background: #ff6b6b;
+        }
+
+        .usage-counter {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .locked {
+            position: relative;
+        }
+
         .locked::after {
-            content: "🔒";
-            position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-            font-size:3rem; background:rgba(0,0,0,.8); width:100%; height:100%;
-            display:flex; align-items:center; justify-content:center; border-radius:15px;
+            content: "ðŸ”’";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
         }
-        .frequency-badge { background:rgba(255,107,107,.2); color:#ff6b6b; padding:0.3rem 0.8rem; border-radius:15px; font-size:0.8rem; font-weight:bold; margin-top:0.5rem; display:inline-block; }
-        /* ... autres styles inchangés ... */
+
+        /* SCIENCE SECTION */
+        .science-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .science-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .science-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .science-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .science-card h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .science-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .frequency-details {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .frequency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .frequency-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .frequency-card.featured-freq {
+            border-color: #00bfff;
+            background: rgba(0, 191, 255, 0.1);
+        }
+
+        .frequency-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .frequency-card.playing {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .frequency-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+
+        .frequency-card h4 {
+            color: #ffd700;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .frequency-card p {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .scientific-details {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0, 191, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #00bfff;
+        }
+
+        .detail-item h5 {
+            color: #ffd700;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .detail-item p {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* PRICING */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid #ffd700;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: "POPULAIRE";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 1.5rem;
+        }
+
+        .features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .features li {
+            padding: 0.5rem 0;
+        }
+
+        .features li::before {
+            content: "âœ“";
+            color: #00ff88;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid #ffd700;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* MEDITATION VIEW */
+        .meditation-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.9), rgba(26,26,46,0.95));
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .meditation-view.show {
+            display: flex;
+        }
+
+        .meditation-symbol {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .timer {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .audio-controls {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .audio-btn {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+        }
+
+        .audio-btn.playing {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            color: white;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffd700;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 5px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .frequency-badge {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .status {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(0, 255, 136, 0.9);
+            color: #1a1a2e;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+            z-index: 1500;
+            font-weight: bold;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 { font-size:2.5rem; }
-            .header { flex-direction:column; padding:1rem;}
-            .nav { margin-top:1rem;}
-            .pricing-card.featured { transform:none;}
-            .audio-controls { flex-direction:column; gap:0.5rem;}
+            .hero h1 { font-size: 2.5rem; }
+            .header { flex-direction: column; padding: 1rem; }
+            .nav { margin-top: 1rem; }
+            .pricing-card.featured { transform: none; }
+            .audio-controls { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
@@ -85,7 +616,7 @@
         <div class="logo">Manifestation Lab</div>
         <nav class="nav">
             <a href="#symbols">Symboles</a>
-            <a href="#meditations">Méditations</a>
+            <a href="#meditations">MÃ©ditations</a>
             <a href="#science">Science</a>
             <a href="#pricing">Offres</a>
         </nav>
@@ -94,7 +625,7 @@
     <!-- HERO -->
     <section class="hero section">
         <h1>Transformez Votre Vie</h1>
-        <p>"Au-delà de l'apprentissage, l'expérience"</p>
+        <p>"Au-delÃ  de l'apprentissage, l'expÃ©rience"</p>
         <div class="cta-buttons">
             <a href="#symbols" class="btn btn-primary">Essai Gratuit</a>
             <a href="#pricing" class="btn btn-secondary">Voir les Offres</a>
@@ -103,77 +634,81 @@
 
     <!-- SYMBOLES -->
     <section id="symbols" class="section">
-        <h2 class="section-title">Symboles Sacrés + Fréquences</h2>
+        <h2 class="section-title">Symboles SacrÃ©s + FrÃ©quences</h2>
         <div class="grid">
-            <div class="card free-trial">
+            <div class="card free-trial" style="position: relative;">
                 <div class="badge badge-free">GRATUIT</div>
-                <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528)">🌸</div>
+                <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528)">ðŸŒ¸</div>
                 <h3 style="color: #ffd700;">Fleur de Vie</h3>
                 <p style="color: #00bfff; font-weight: bold;">Harmonie + 528 Hz</p>
-                <div class="frequency-badge">🎵 Fréquence de l'Amour</div>
-                <p>Géométrie sacrée parfaite avec la fréquence de l'amour.</p>
+                <div class="frequency-badge">ðŸŽµ FrÃ©quence de l'Amour</div>
+                <p>GÃ©omÃ©trie sacrÃ©e parfaite avec la frÃ©quence de l'amour.</p>
                 <div class="usage-counter" id="counter1">
-                    ✨ <span id="uses1">3</span> utilisations gratuites
+                    âœ¨ <span id="uses1">3</span> utilisations gratuites
                 </div>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">🔺</div>
+                <div class="symbol-icon">ðŸ”º</div>
                 <h3 style="color: #ffd700;">Sri Yantra</h3>
                 <p style="color: #00bfff; font-weight: bold;">Manifestation + 432 Hz</p>
-                <div class="frequency-badge">🎵 Harmonie Naturelle</div>
+                <div class="frequency-badge">ðŸŽµ Harmonie Naturelle</div>
                 <p>Symbole hindou de manifestation et d'abondance.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">👁️</div>
-                <h3 style="color: #ffd700;">Œil d'Horus</h3>
+                <div class="symbol-icon">ðŸ‘</div>
+                <h3 style="color: #ffd700;">Å’il d'Horus</h3>
                 <p style="color: #00bfff; font-weight: bold;">Protection + 741 Hz</p>
-                <div class="frequency-badge">🎵 Expression & Créativité</div>
-                <p>Symbole égyptien de protection et clairvoyance.</p>
+                <div class="frequency-badge">ðŸŽµ Expression & CrÃ©ativitÃ©</div>
+                <p>Symbole Ã©gyptien de protection et clairvoyance.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">✶</div>
+                <div class="symbol-icon">â­</div>
                 <h3 style="color: #ffd700;">Merkaba</h3>
-                <p style="color: #00bfff; font-weight: bold;">Élévation + 963 Hz</p>
-                <div class="frequency-badge">🎵 Connexion Divine</div>
-                <p>Véhicule de lumière pour l'ascension spirituelle.</p>
+                <p style="color: #00bfff; font-weight: bold;">Ã‰lÃ©vation + 963 Hz</p>
+                <div class="frequency-badge">ðŸŽµ Connexion Divine</div>
+                <p>VÃ©hicule de lumiÃ¨re pour l'ascension spirituelle.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">🕉️</div>
-                <h3 style="color: #ffd700;">Om Sacré</h3>
+                <div class="symbol-icon">ðŸ•‰ï¸</div>
+                <h3 style="color: #ffd700;">Om SacrÃ©</h3>
                 <p style="color: #00bfff; font-weight: bold;">Vibration + 396 Hz</p>
-                <div class="frequency-badge">🎵 Libération des Peurs</div>
-                <p>Symbole universel de l'unité cosmique.</p>
+                <div class="frequency-badge">ðŸŽµ LibÃ©ration des Peurs</div>
+                <p>Symbole universel de l'unitÃ© cosmique.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">🔯</div>
+                <div class="symbol-icon">ðŸ”¯</div>
                 <h3 style="color: #ffd700;">Sceau de Salomon</h3>
-                <p style="color: #00bfff; font-weight: bold;">Équilibre + 852 Hz</p>
-                <div class="frequency-badge">🎵 Éveil Spirituel</div>
-                <p>Hexagramme sacré d'équilibre et protection.</p>
+                <p style="color: #00bfff; font-weight: bold;">Ã‰quilibre + 852 Hz</p>
+                <div class="frequency-badge">ðŸŽµ Ã‰veil Spirituel</div>
+                <p>Hexagramme sacrÃ© d'Ã©quilibre et protection.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">🌐</div>
-                <h3 style="color: #ffd700;">Spirale Dorée</h3>
+                <div class="symbol-icon">ðŸŒ€</div>
+                <h3 style="color: #ffd700;">Spirale DorÃ©e</h3>
                 <p style="color: #00bfff; font-weight: bold;">Croissance + 528 Hz</p>
-                <div class="frequency-badge">🎵 Régénération</div>
+                <div class="frequency-badge">ðŸŽµ RÃ©gÃ©nÃ©ration</div>
                 <p>Ratio phi pour l'expansion harmonieuse.</p>
             </div>
 
             <div class="card locked">
-                <div class="symbol-icon">🔥</div>
+                <div class="symbol-icon">ðŸ”¥</div>
                 <h3 style="color: #ffd700;">Triskel Celtique</h3>
                 <p style="color: #00bfff; font-weight: bold;">Transformation + 741 Hz</p>
-                <div class="frequency-badge">🎵 Purification</div>
-                <p>Triple spirale de renaissance et évolution.</p>
+                <div class="frequency-badge">ðŸŽµ Purification</div>
+                <p>Triple spirale de renaissance et Ã©volution.</p>
             </div>
         </div>
     </section>
-    <!-- La suite du contenu... -->
-</body>
-</html>
+
+    <!-- MEDITATIONS -->
+    <section id="meditations" class="section">
+        <h2 class="section-title">MÃ©ditations GuidÃ©es</h2>
+        <div class="grid">
+            <div class="card free-trial" style="position: relative;">
+                <div class="badge badge-fre
