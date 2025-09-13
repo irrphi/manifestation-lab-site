@@ -1,714 +1,769 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manifestation Lab - Symboles SacrÃ©s & FrÃ©quences</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: white;
-            line-height: 1.6;
-        }
-
-        /* HEADER */
-        .header {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: #ffd700;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .nav {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav a {
-            color: #ffd700;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid #ffd700;
-            border-radius: 20px;
-            transition: all 0.3s;
-        }
-
-        .nav a:hover {
-            background: #ffd700;
-            color: #1a1a2e;
-        }
-
-        /* SECTIONS */
-        .section {
-            padding: 6rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero {
-            text-align: center;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: #ffd700;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: #00bfff;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #ffd700;
-            color: #ffd700;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #ffd700;
-            margin-bottom: 3rem;
-        }
-
-        /* GRILLES */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .card.free-trial {
-            border-color: #00ff88;
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        .card.premium {
-            border-color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-        }
-
-        .symbol-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .symbol-icon:hover {
-            transform: rotate(360deg) scale(1.1);
-        }
-
-        .badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            padding: 0.5rem;
-            border-radius: 50%;
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .badge-free {
-            background: #00ff88;
-        }
-
-        .badge-premium {
-            background: #ff6b6b;
-        }
-
-        .usage-counter {
-            margin-top: 1rem;
-            padding: 0.8rem;
-            background: rgba(0, 255, 136, 0.2);
-            border-radius: 10px;
-            color: #00ff88;
-            font-weight: bold;
-        }
-
-        .locked {
-            position: relative;
-        }
-
-        .locked::after {
-            content: "ðŸ”’";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            background: rgba(0, 0, 0, 0.8);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-        }
-
-        /* SCIENCE SECTION */
-        .science-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .science-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .science-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffd700;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .science-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .science-card h3 {
-            color: #ffd700;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .science-card p {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .frequency-details {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .frequency-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .frequency-card {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .frequency-card.featured-freq {
-            border-color: #00bfff;
-            background: rgba(0, 191, 255, 0.1);
-        }
-
-        .frequency-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .frequency-card.playing {
-            border-color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        .frequency-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 0.5rem;
-        }
-
-        .frequency-card h4 {
-            color: #ffd700;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-
-        .frequency-card p {
-            color: #bbb;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .scientific-details {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(0, 191, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 191, 255, 0.3);
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .detail-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #00bfff;
-        }
-
-        .detail-item h5 {
-            color: #ffd700;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-
-        .detail-item p {
-            color: #ccc;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        /* PRICING */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid #ffd700;
-            text-align: center;
-            position: relative;
-        }
-
-        .pricing-card.featured {
-            border-color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.featured::before {
-            content: "POPULAIRE";
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff6b6b;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .price {
-            font-size: 3rem;
-            color: #ff6b6b;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #888;
-            font-size: 1.5rem;
-        }
-
-        .features {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .features li {
-            padding: 0.5rem 0;
-        }
-
-        .features li::before {
-            content: "âœ“";
-            color: #00ff88;
-            margin-right: 0.5rem;
-            font-weight: bold;
-        }
-
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: #1a1a2e;
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 400px;
-            width: 90%;
-            border: 2px solid #ffd700;
-            position: relative;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border: 1px solid #444;
-            border-radius: 5px;
-            background: #333;
-            color: white;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* MEDITATION VIEW */
-        .meditation-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.9), rgba(26,26,46,0.95));
-            z-index: 3000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .meditation-view.show {
-            display: flex;
-        }
-
-        .meditation-symbol {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            animation: spin 3s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .timer {
-            font-size: 2rem;
-            color: #ffd700;
-            margin-bottom: 1rem;
-        }
-
-        .audio-controls {
-            margin: 1rem 0;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .audio-btn {
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid #ffd700;
-            color: #ffd700;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .audio-btn:hover {
-            background: #ffd700;
-            color: #1a1a2e;
-        }
-
-        .audio-btn.playing {
-            background: #ff6b6b;
-            border-color: #ff6b6b;
-            color: white;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #ffd700;
-        }
-
-        .volume-slider {
-            width: 80px;
-            height: 5px;
-            background: rgba(255, 215, 0, 0.3);
-            border-radius: 3px;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #ffd700;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .frequency-badge {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-top: 0.5rem;
-            display: inline-block;
-        }
-
-        .status {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: rgba(0, 255, 136, 0.9);
-            color: #1a1a2e;
-            padding: 1rem;
-            border-radius: 5px;
-            display: none;
-            z-index: 1500;
-            font-weight: bold;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .header { flex-direction: column; padding: 1rem; }
-            .nav { margin-top: 1rem; }
-            .pricing-card.featured { transform: none; }
-            .audio-controls { flex-direction: column; gap: 0.5rem; }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manifestation Lab - Symboles Sacrés & Fréquences</title>
+<style>
+  /* Reset basique */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    color: #ffd700;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav a {
+    color: #ffd700;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ffd700;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .nav a:hover {
+    background: #ffd700;
+    color: #1a1a2e;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    color: #ffd700;
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.5rem;
+    color: #00bfff;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: white;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Titres section */
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin-bottom: 3rem;
+  }
+
+  /* Grilles */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  /* Cartes */
+  .card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+    position: relative;
+    text-align: center;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  /* Cartes spécifiques */
+  .card.free-trial {
+    border-color: #00ff88;
+    background: rgba(0,255,136,0.1);
+  }
+  .card.premium {
+    border-color: #ff6b6b;
+    background: rgba(255,107,107,0.1);
+  }
+
+  /* Symboles et icônes */
+  .symbol-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .symbol-icon:hover {
+    transform: rotate(360deg) scale(1.1);
+  }
+
+  /* Badges */
+  .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+  }
+  .badge-free {
+    background: #00ff88;
+  }
+  .badge-premium {
+    background: #ff6b6b;
+  }
+
+  /* Usage counters */
+  .usage-counter {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: rgba(0,255,136,0.2);
+    border-radius: 10px;
+    color: #00ff88;
+    font-weight: bold;
+  }
+
+  /* Locked overlay */
+  .locked {
+    position: relative;
+  }
+  .locked::after {
+    content: "🔒"; /* emoji */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+  }
+
+  /* Science section */
+  .science-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .science-card {
+    background: rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255,215,0,0.3);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .science-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffd700;
+    box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+  }
+  .science-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Frequencies & détails */
+  .frequency-details {
+    background: rgba(0,191,255,0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(0,191,255,0.3);
+  }
+  .frequency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .frequency-card {
+    background: rgba(255,255,255,0.08);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .frequency-card.featured-freq {
+    border-color: #00bfff;
+    background: rgba(0,191,255,0.1);
+  }
+  .frequency-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  .frequency-card.playing {
+    border-color: #ff6b6b;
+    background: rgba(255,107,107,0.2);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  .frequency-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+  }
+  .frequency-card h4 {
+    color: #ffd700;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+  }
+  .frequency-card p {
+    color: #bbb;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Scientific details */
+  .scientific-details {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(0,191,255,0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(0,191,255,0.3);
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .detail-item {
+    background: rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #00bfff;
+  }
+  .detail-item h5 {
+    color: #ffd700;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+  }
+  .detail-item p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Pricing */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .pricing-card {
+    background: rgba(255,255,255,0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid #ffd700;
+    text-align: center;
+    position: relative;
+  }
+  .pricing-card.featured {
+    border-color: #ff6b6b;
+    background: rgba(255,107,107,0.1);
+    transform: scale(1.05);
+  }
+  .pricing-card.featured::before {
+    content: "POPULAIRE";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff6b6b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .price {
+    font-size: 3rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+  .old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 1.5rem;
+  }
+  .features {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .features li {
+    padding: 0.5rem 0;
+  }
+  .features li::before {
+    content: "✔"; /* check icon */
+    color: #00ff88;
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
+
+  /* Modal paiement */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal.show {
+    display: flex;
+  }
+  .modal-content {
+    background: #1a1a2e;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid #ffd700;
+    position: relative;
+  }
+  .form-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+  }
+  .close-btn {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  /* Meditation view */
+  .meditation-view {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.9), rgba(26,26,46,0.95));
+    z-index: 3000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .meditation-view.show {
+    display: flex;
+  }
+  .meditation-symbol {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    animation: spin 3s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .timer {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 1rem;
+  }
+  .audio-controls {
+    margin: 1rem 0;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .audio-btn {
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid #ffd700;
+    color: #ffd700;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .audio-btn:hover {
+    background: #ffd700;
+    color: #1a1a2e;
+  }
+  .audio-btn.playing {
+    background: #ff6b6b;
+    border-color: #ff6b6b;
+    color: white;
+  }
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffd700;
+  }
+  .volume-slider {
+    width: 80px;
+    height: 5px;
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ffd700;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  /* Frequency badge */
+  .frequency-badge {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+
+  /* Status message */
+  .status {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: rgba(0,255,136,0.9);
+    color: #1a1a2e;
+    padding: 1rem;
+    border-radius: 5px;
+    display: none;
+    z-index: 1500;
+    font-weight: bold;
+  }
+
+  /* Responsive */
+  @media(max-width: 768px){
+    .hero h1 { font-size: 2.5rem; }
+    .header { flex-direction: column; padding: 1rem; }
+    .nav { margin-top: 1rem; }
+    .pricing-card.featured { transform: none; }
+    .audio-controls { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="logo">Manifestation Lab</div>
-        <nav class="nav">
-            <a href="#symbols">Symboles</a>
-            <a href="#meditations">MÃ©ditations</a>
-            <a href="#science">Science</a>
-            <a href="#pricing">Offres</a>
-        </nav>
-    </header>
 
-    <!-- HERO -->
-    <section class="hero section">
-        <h1>Transformez Votre Vie</h1>
-        <p>"Au-delÃ  de l'apprentissage, l'expÃ©rience"</p>
-        <div class="cta-buttons">
-            <a href="#symbols" class="btn btn-primary">Essai Gratuit</a>
-            <a href="#pricing" class="btn btn-secondary">Voir les Offres</a>
-        </div>
-    </section>
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Manifestation Lab</div>
+  <nav class="nav">
+    <a href="#symbols">Symboles</a>
+    <a href="#meditations">Méditations</a>
+    <a href="#science">Science</a>
+    <a href="#pricing">Offres</a>
+  </nav>
+</header>
 
-    <!-- SYMBOLES -->
-    <section id="symbols" class="section">
-        <h2 class="section-title">Symboles SacrÃ©s + FrÃ©quences</h2>
-        <div class="grid">
-            <div class="card free-trial" style="position: relative;">
-                <div class="badge badge-free">GRATUIT</div>
-                <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528)">ðŸŒ¸</div>
-                <h3 style="color: #ffd700;">Fleur de Vie</h3>
-                <p style="color: #00bfff; font-weight: bold;">Harmonie + 528 Hz</p>
-                <div class="frequency-badge">ðŸŽµ FrÃ©quence de l'Amour</div>
-                <p>GÃ©omÃ©trie sacrÃ©e parfaite avec la frÃ©quence de l'amour.</p>
-                <div class="usage-counter" id="counter1">
-                    âœ¨ <span id="uses1">3</span> utilisations gratuites
-                </div>
-            </div>
+<!-- HERO -->
+<section class="hero section">
+  <h1>Transformez Votre Vie</h1>
+  <p>"Au-delà de l'apprentissage, l'expérience"</p>
+  <div class="cta-buttons">
+    <a href="#symbols" class="btn btn-primary">Essai Gratuit</a>
+    <a href="#pricing" class="btn btn-secondary">Voir les Offres</a>
+  </div>
+</section>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸ”º</div>
-                <h3 style="color: #ffd700;">Sri Yantra</h3>
-                <p style="color: #00bfff; font-weight: bold;">Manifestation + 432 Hz</p>
-                <div class="frequency-badge">ðŸŽµ Harmonie Naturelle</div>
-                <p>Symbole hindou de manifestation et d'abondance.</p>
-            </div>
+<!-- SYMBOLES -->
+<section id="symbols" class="section">
+  <h2 class="section-title">Symboles Sacrés + Fréquences</h2>
+  <div class="grid">
+    <!-- Exemple de carte -->
+    <div class="card free-trial" style="position: relative;">
+      <div class="badge badge-free">GRATUIT</div>
+      <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528)">⚚</div>
+      <h3 style="color: #ffd700;">Fleur de Vie</h3>
+      <p style="color: #00bfff; font-weight: bold;">Harmonie + 528 Hz</p>
+      <div class="frequency-badge">🎵 Fréquence de l'Amour</div>
+      <p>Géométrie sacrée parfaite avec la fréquence de l'amour.</p>
+      <div class="usage-counter" id="counter1">
+        ✧ <span id="uses1">3</span> utilisations gratuites
+      </div>
+    </div>
+    <!-- Ajoutez d'autres cartes similaires pour les symboles -->
+  </div>
+</section>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸ‘</div>
-                <h3 style="color: #ffd700;">Å’il d'Horus</h3>
-                <p style="color: #00bfff; font-weight: bold;">Protection + 741 Hz</p>
-                <div class="frequency-badge">ðŸŽµ Expression & CrÃ©ativitÃ©</div>
-                <p>Symbole Ã©gyptien de protection et clairvoyance.</p>
-            </div>
+<!-- MEDITATIONS -->
+<section id="meditations" class="section">
+  <h2 class="section-title">Méditations Guidées</h2>
+  <div class="grid">
+    <!-- Exemple de carte -->
+    <div class="card free-trial" style="position: relative;">
+      <div class="badge badge-free">GRATUIT</div>
+      <div class="symbol-icon" onclick="useMeditation('stress', 432)" style="color: #00bfff;">●</div>
+      <h3 style="color: #ffd700;">Gestion du Stress</h3>
+      <p style="color: #00bfff; font-weight: bold;">Apaisement + 432 Hz</p>
+      <div class="frequency-badge">🎵 Fréquence de l'Amour</div>
+      <p>Technique de respiration pour l'apaisement immédiat.</p>
+      <div style="background: rgba(255, 165, 0, 0.2); padding: 0.8rem; border-radius: 8px; margin-top: 1rem; font-size: 0.9rem; color: #ffa500;">
+        🔹 Technique de bien-être pour la gestion du stress quotidien.
+      </div>
+      <div class="usage-counter" id="counter2">
+        ✧ <span id="uses2">1</span> utilisation gratuite
+      </div>
+    </div>
+    <!-- Ajoutez d'autres cartes pour méditations -->
+  </div>
+</section>
 
-            <div class="card locked">
-                <div class="symbol-icon">â­</div>
-                <h3 style="color: #ffd700;">Merkaba</h3>
-                <p style="color: #00bfff; font-weight: bold;">Ã‰lÃ©vation + 963 Hz</p>
-                <div class="frequency-badge">ðŸŽµ Connexion Divine</div>
-                <p>VÃ©hicule de lumiÃ¨re pour l'ascension spirituelle.</p>
-            </div>
+<!-- Science & Fréquences -->
+<section id="science" class="section">
+  <h2 class="section-title">Pourquoi cette approche fonctionne ?</h2>
+  <p style="text-align: center; font-size: 1.2rem; color: #00bfff; margin-bottom: 3rem; font-style: italic;">
+    *Une synthèse entre recherches avant-gardistes et traditions millénaires*
+  </p>
+  <div class="science-grid">
+    <!-- Exemple de carte -->
+    <div class="science-card">
+      <div class="science-icon">🔬</div>
+      <h3>Communication Quantique</h3>
+      <p>Les recherches en physique quantique suggèrent que la conscience pourrait influencer la matière à distance. L'intrication quantique ouvre des perspectives fascinantes pour des échanges énergétiques instantanés.</p>
+    </div>
+    <!-- Ajoutez d'autres cartes -->
+  </div>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸ•‰ï¸</div>
-                <h3 style="color: #ffd700;">Om SacrÃ©</h3>
-                <p style="color: #00bfff; font-weight: bold;">Vibration + 396 Hz</p>
-                <div class="frequency-badge">ðŸŽµ LibÃ©ration des Peurs</div>
-                <p>Symbole universel de l'unitÃ© cosmique.</p>
-            </div>
+  <!-- Fréquences -->
+  <div class="frequency-details">
+    <h3 style="color: #ffd700; text-align: center; margin: 3rem 0 2rem;">Fréquences Solfège & Leurs Bienfaits</h3>
+    <div class="frequency-grid">
+      <!-- Exemple -->
+      <div class="frequency-card" onclick="playFrequency(396)">
+        <div class="frequency-number">396 Hz</div>
+        <h4>Libération des Peurs</h4>
+        <p>Transforme la culpabilité en joie, libère des énergies bloquées et aide à surmonter les traumatismes.</p>
+        <div class="frequency-badge">🎵 Cliquez pour écouter</div>
+      </div>
+      <!-- Ajoutez d'autres fréquences -->
+    </div>
+  </div>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸ”¯</div>
-                <h3 style="color: #ffd700;">Sceau de Salomon</h3>
-                <p style="color: #00bfff; font-weight: bold;">Ã‰quilibre + 852 Hz</p>
-                <div class="frequency-badge">ðŸŽµ Ã‰veil Spirituel</div>
-                <p>Hexagramme sacrÃ© d'Ã©quilibre et protection.</p>
-            </div>
+  <div style="text-align: center; margin-top: 3rem;">
+    <button class="btn btn-secondary" onclick="toggleDetails()">
+      <span id="detailsBtn">Voir Plus de Détails Scientifiques</span>
+    </button>
+  </div>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸŒ€</div>
-                <h3 style="color: #ffd700;">Spirale DorÃ©e</h3>
-                <p style="color: #00bfff; font-weight: bold;">Croissance + 528 Hz</p>
-                <div class="frequency-badge">ðŸŽµ RÃ©gÃ©nÃ©ration</div>
-                <p>Ratio phi pour l'expansion harmonieuse.</p>
-            </div>
+  <!-- Détails scientifiques cachés -->
+  <div id="scientificDetails" class="scientific-details" style="display: none;">
+    <h4 style="color: #ffd700; margin: 2rem 0 1rem;">Bases Scientifiques Validées</h4>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <h5>🔬 Cymatique</h5>
+        <p>Science qui étudie les effets visibles du son. Hans Jenny a démontré que les fréquences créent des motifs géométriques spécifiques dans la matière.</p>
+      </div>
+      <!-- Ajoutez d'autres détails -->
+    </div>
+  </div>
+</section>
 
-            <div class="card locked">
-                <div class="symbol-icon">ðŸ”¥</div>
-                <h3 style="color: #ffd700;">Triskel Celtique</h3>
-                <p style="color: #00bfff; font-weight: bold;">Transformation + 741 Hz</p>
-                <div class="frequency-badge">ðŸŽµ Purification</div>
-                <p>Triple spirale de renaissance et Ã©volution.</p>
-            </div>
-        </div>
-    </section>
+<!-- Offres / Pricing -->
+<section id="pricing" class="section">
+  <h2 class="section-title">Accès Complet</h2>
+  <div class="pricing-grid">
+    <!-- Exemple pack -->
+    <div class="pricing-card">
+      <h3 style="color: #ffd700;">Mensuel</h3>
+      <div class="old-price">29 €</div>
+      <div class="price">14,50 €</div>
+      <p style="color: #ff6b6b; font-weight: bold;">-50% Premier Mois</p>
+      <ul class="features">
+        <li>8 Symboles sacrés</li>
+        <li>6 Méditations guidées</li>
+        <li>Fréquences thérapeutiques</li>
+        <li>Guide PDF</li>
+      </ul>
+      <button class="btn btn-primary" style="width: 100%;" onclick="openPayment('monthly')">Commencer</button>
+    </div>
+    <!-- Pack 2 mois -->
+    <div class="pricing-card featured">
+      <h3 style="color: #ff6b6b;">Pack 2 Mois</h3>
+      <div class="old-price">58 €</div>
+      <div class="price">39 €</div>
+      <p style="color: #00ff88; font-weight: bold;">Économisez 19 €</p>
+      <ul class="features">
+        <li>Accès complet 2 mois</li>
+        <li>Tous les symboles</li>
+        <li>Toutes les méditations</li>
+        <li>Guides avancés</li>
+        <li>Support prioritaire</li>
+      </ul>
+      <button class="btn btn-primary" style="width: 100%;" onclick="openPayment('pack2')">Pack 2 Mois</button>
+    </div>
+    <!-- Trimestriel -->
+    <div class="pricing-card">
+      <h3 style="color: #00ff88;">Trimestriel</h3>
+      <div class="old-price">87 €</div>
+      <div class="price">69 €</div>
+      <p style="color: #ffd700; font-weight: bold;">Meilleure Valeur</p>
+      <ul class="features">
+        <li>3 mois d'accès</li>
+        <li>Contenu exclusif</li>
+        <li>Séances de groupe</li>
+        <li>Suivi personnalisé</li>
+      </ul>
+      <button class="btn btn-primary" style="width: 100%;" onclick="openPayment('quarterly')">3 Mois</button>
+    </div>
+  </div>
+</section>
 
-    <!-- MEDITATIONS -->
-    <section id="meditations" class="section">
-        <h2 class="section-title">MÃ©ditations GuidÃ©es</h2>
-        <div class="grid">
-            <div class="card free-trial" style="position: relative;">
-                <div class="badge badge-fre
+<!-- Modal paiement -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h3 style="color:#ffd700; text-align:center; margin-bottom:1rem;" id="modalTitle">Pack</h3>
+    <div style="text-align:center; margin-bottom:1rem;">
+      <div style="font-size:2rem; color:#ff6b6b; font-weight:bold;" id="modalPrice">39 €</div>
+    </div>
+    <input type="email" placeholder="Email" class="form-input" />
+    <input type="text" placeholder="Nom" class="form-input" />
+    <input type="text" placeholder="Carte" class="form-input" />
+    <button class="btn btn-primary" style="width:100%; margin-top:1rem;" onclick="processPayment()">Confirmer</button>
+  </div>
+</div>
+
+<!-- Vue méditation -->
+<div id="meditationView" class="meditation-view">
+  <button class="close-btn" onclick="closeMeditation()" style="position: absolute; top:2rem; right:2rem;">&times;</button>
+  <div class="meditation-symbol" id="meditationSymbol">⚚</div>
+  <div class="timer" id="timer">3:00</div>
+  <div class="audio-controls">
+    <button class="audio-btn" id="playBtn" onclick="toggleAudio()">⏸ Jouer</button>
+    <button class="audio-btn" onclick="stopAudio()">⏹ Arrêter</button>
+    <div class="volume-control">
+      🔊 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="30" onchange="setVolume(this.value)">
+    </div>
+  </div>
+  <div style="max-width:500px;">
+    <h2 style="color:#ffd700; margin-bottom:1rem;" id="sessionTitle">Session de Bien-être</h2>
+    <p id="sessionDesc">Concentrez-vous sur votre respiration et détendez-vous.</p>
+  </div>
+</div>
+
+<!-- Status message -->
+<div id="status" class="status"></div>
+
+<script>
+  // Variables globales
+  let uses1 = 3;
+  let uses2 = 1;
+  let isSubscribed = false;
+  let timer = null;
+  let audioContext = null;
+  let oscillator = null;
+  let gainNode = null;
+  let currentFrequency = null;
+  let
