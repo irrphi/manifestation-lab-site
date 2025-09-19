@@ -199,13 +199,12 @@
             z-index: 1500;
             font-weight: bold;
         }
-        /* Mise à jour pour n'afficher que deux cartes par défaut dans le pricing */
         .pricing-grid {
              display: grid; 
              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
              gap: 2rem; 
              margin-top: 2rem; 
-             max-width: 650px; /* Limite pour centrer les 2 cartes */
+             max-width: 650px; 
              margin-left: auto;
              margin-right: auto;
         }
@@ -299,7 +298,7 @@
                 <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px; text-align: center; border: 1px solid #ffd700;">
                     <p style="color: #ffd700; margin-bottom: 0.5rem;">🎧 Exercice de Respiration Guidé (Lecteur Vérifié)</p>
                     <audio controls style="width: 100%; max-width: 400px;">
-                        <source src="audio/exercice-respiration.mp3" type="audio/mpeg">
+                        <source src="exercice-respiration.mp3" type="audio/mpeg">
                         <p style="color: #ff6b6b;">Votre navigateur ne supporte pas l'élément audio.</p>
                     </audio>
                     <p style="font-size: 0.9rem; color: #aaa; margin-top: 0.5rem;">Audio personnalisé pour optimiser vos séances</p>
@@ -566,7 +565,7 @@
                     <div class="frequency-number">852 Hz</div>
                     <h4 style="color: #ffd700;">Éveil Spirituel</h4>
                     <p>Développe l'intuition et renforce la connexion spirituelle.</p>
-                    <div class="frequency-badge">🎵 Cliquez pour écouter</div>
+                    <div class="frequency-badge">🎵 Cliquez pour écouter</p>
                 </div>
                 <div class="frequency-card" onclick="playFrequency(963)">
                     <div class="frequency-number">963 Hz</div>
