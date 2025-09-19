@@ -199,35 +199,43 @@
             z-index: 1500;
             font-weight: bold;
         }
+        /* Mise à jour pour n'afficher que deux cartes par défaut dans le pricing */
+        .pricing-grid {
+             display: grid; 
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+             gap: 2rem; 
+             margin-top: 2rem; 
+             max-width: 650px; /* Limite pour centrer les 2 cartes */
+             margin-left: auto;
+             margin-right: auto;
+        }
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .header { flex-direction: column; padding: 1rem; text-align: center; }
             .nav { margin-top: 1rem; }
+            .pricing-grid {
+                max-width: 100%;
+            }
         }
-@media (max-width: 900px) { 
-img { 
-   max-width: 100%;
-   height: auto;
-}
-
-.table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td, th {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-}	
-
-
+        @media (max-width: 900px) { 
+            img { 
+                max-width: 100%;
+                height: auto;
+            }
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            td, th {
+                padding: 8px;
+                text-align: left;
+                border: 1px solid #ddd;
+            }
+        }
     </style>
 </head>
 <body>
@@ -276,8 +284,8 @@ td, th {
                 <p><strong>c)</strong> Durant la session, concentrez-vous sur le symbole en mouvement en utilisant des techniques de respiration ou méditatives...</p>
                 <br>
                 <p style="color: #ffd700;"><strong>Pour des séances de concentration réussies, voici un exercice que vous pouvez apprendre et utiliser :</strong></p>
-                <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px; text-align: center;">
-                    <p style="color: #ffd700; margin-bottom: 0.5rem;">🎧 Exercice de Respiration Guidé</p>
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px; text-align: center; border: 1px solid #ffd700;">
+                    <p style="color: #ffd700; margin-bottom: 0.5rem;">🎧 Exercice de Respiration Guidé (Lecteur Vérifié)</p>
                     <audio controls style="width: 100%; max-width: 400px;">
                         <source src="audio/exercice-respiration.mp3" type="audio/mpeg">
                         <p style="color: #ff6b6b;">Votre navigateur ne supporte pas l'élément audio.</p>
@@ -308,7 +316,7 @@ td, th {
             </div>
             <div class="card free-trial">
                 <div class="badge">GRATUIT</div>
-                <div class="symbol-icon" onclick="useSymbol('oeil-horus', 741, '👁', 'Œil d\\'Horus')">👁</div>
+                <div class="symbol-icon" onclick="useSymbol('oeil-horus', 741, '👁', 'Œil d\'Horus')">👁</div>
                 <h3 style="color: #ffd700;">Œil d'Horus</h3>
                 <p style="color: #00bfff; font-weight: bold;">Protection + 741 Hz</p>
                 <div class="frequency-badge">🎵 Expression & Créativité</div>
@@ -402,14 +410,4 @@ td, th {
             <div class="card free-trial">
                 <div class="badge">GRATUIT</div>
                 <div class="symbol-icon" onclick="useMeditation('focus', 40, '🧠', 'Focus Mental')">🧠</div>
-                <h3 style="color: #ffd700;">Focus Mental</h3>
-                <p style="color: #00bfff; font-weight: bold;">Concentration + Ondes Gamma</p>
-                <div class="frequency-badge">🎵 Gamma 40Hz</div>
-                <p>Amélioration de la concentration et clarté mentale.</p>
-                <div class="usage-counter">✨ Accès illimité gratuit</div>
-            </div>
-            <div class="card free-trial">
-                <div class="badge">GRATUIT</div>
-                <div class="symbol-icon" onclick="useMeditation('lacher-prise', 396, '🌊', 'Lâcher-Prise')" style="background: linear-gradient(45deg, #00bfff, #0099cc);">🌊</div>
-                <h3 style="color: #ffd700;">Lâcher-Prise</h3>
-                <p style="color: #00bfff; font-
+                <h
