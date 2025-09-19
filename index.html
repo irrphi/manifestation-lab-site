@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manifestation Lab - Symboles Sacrés & Fréquences</title>
     <style>
+        /* CSS INCLUS (Corrections finales appliquées) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
@@ -116,15 +117,24 @@
             margin-top: 0.5rem;
             display: inline-block;
         }
-        .frequency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        
+        /* CORRECTION FINALE : Grille de fréquences ajustée pour l'uniformité et l'overlap */
+        .frequency-grid { 
+            display: grid; 
+            /* Augmentation de la taille minimale à 250px et du gap à 2rem pour éviter l'empiétement */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 2rem; 
+            margin: 2rem 0; 
+        }
         .frequency-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 191, 255, 0.1); /* Uniform Blue Background */
             padding: 1.5rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #00bfff; /* Uniform Blue Border */
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
+            /* Suppression du min-width ici, géré par le grid-template-columns */
         }
         .frequency-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
         .frequency-card.playing {
@@ -132,8 +142,18 @@
             background: rgba(255, 107, 107, 0.2);
             animation: pulse 2s infinite;
         }
+        .frequency-card p { 
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+        }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        .frequency-number { font-size: 2rem; font-weight: bold; color: #ff6b6b; margin-bottom: 0.5rem; }
+        .frequency-number { 
+            font-size: 2rem; 
+            font-weight: bold; 
+            color: #ff6b6b; /* Garder le rouge pour les chiffres de fréquence */ 
+            margin-bottom: 0.5rem; 
+        }
+        
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 2000; }
         .modal.show { display: flex; align-items: center; justify-content: center; }
         .modal-content {
@@ -219,6 +239,18 @@
             margin: 2rem auto; 
             text-align: center;
         }
+        /* Style pour l'affirmation */
+        #affirmationText {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 191, 255, 0.1);
+            border: 1px solid #00bfff;
+            border-radius: 10px;
+            color: #00bfff;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
@@ -255,10 +287,12 @@
         <nav class="nav">
             <a href="#symbols">Symboles</a>
             <a href="#sessions">Sessions</a>
-            <a href="#lab-ai">Lab AI</a> <a href="#bonus">Packs</a>
+            <a href="#lab-ai">Lab AI</a> 
+            <a href="#bonus">Packs</a>
             <a href="#science">Science</a>
             <a href="#pricing">Offres</a>
-            <a href="https://github.com/votre-nom-utilisateur/votre-repo" target="_blank" title="Voir le code source sur GitHub">GitHub</a> <a href="#" onclick="showOwnerModal()">🔐 Propriétaire</a>
+            <a href="https://github.com/votre-nom-utilisateur/votre-repo" target="_blank" title="Voir le code source sur GitHub">GitHub</a>
+            <a href="#" onclick="showOwnerModal()">🔐 Propriétaire</a>
         </nav>
     </header>
 
@@ -293,16 +327,17 @@
                 <p><strong>a)</strong> Cliquez sur un symbole pour l'activer...</p>
                 <p><strong>b)</strong> Cliquez sur 'Jouer' pour s'imprégner de la fréquence correspondante et la mémoriser...</p>
                 <p><strong>c)</strong> Durant la session, concentrez-vous sur le symbole en mouvement en utilisant des techniques de respiration ou méditatives...</p>
+                <p style="color: #ffd700; margin-top: 1rem;"><strong>d) Observez l'affirmation générée et répétez-la mentalement ou à voix haute.</strong></p>
                 <br>
                 <p style="color: #ffd700;"><strong>Pour des séances de concentration réussies, voici un exercice que vous pouvez apprendre et utiliser :</strong></p>
                 <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px; text-align: center; border: 1px solid #ffd700;">
-                    <p style="color: #ffd700; margin-bottom: 0.5rem;">🎧 Exercice de Respiration Guidé (Lecteur Vérifié)</p>
+                    <p style="color: #ffd700; margin-bottom: 0.5rem;">🎧 Exercice de Respiration Guidé</p>
                     <audio controls style="width: 100%; max-width: 400px;">
                         <source src="exercice-respiration.mp3" type="audio/mpeg">
                         <p style="color: #ff6b6b;">Votre navigateur ne supporte pas l'élément audio.</p>
                     </audio>
                     <p style="font-size: 0.9rem; color: #aaa; margin-top: 0.5rem;">Audio personnalisé pour optimiser vos séances</p>
-                </div>
+                    </div>
             </div>
         </div>
         
@@ -537,19 +572,19 @@
                     <p>Transforme la culpabilité en joie, libère des énergies bloquées.</p>
                     <div class="frequency-badge">🎵 Cliquez pour écouter</div>
                 </div>
-                <div class="frequency-card" onclick="playFrequency(432)" style="border-color: #00bfff; background: rgba(0, 191, 255, 0.1);">
+                <div class="frequency-card" onclick="playFrequency(432)">
                     <div class="frequency-number">432 Hz</div>
                     <h4 style="color: #ffd700;">Harmonie Naturelle</h4>
                     <p>Fréquence de la nature, apaise le système nerveux.</p>
                     <div class="frequency-badge">🎵 Cliquez pour écouter</div>
                 </div>
-                <div class="frequency-card" onclick="playFrequency(528)" style="border-color: #00bfff; background: rgba(0, 191, 255, 0.1);">
+                <div class="frequency-card" onclick="playFrequency(528)">
                     <div class="frequency-number">528 Hz</div>
                     <h4 style="color: #ffd700;">Fréquence de l'Amour</h4>
                     <p>Répare l'ADN et ouvre le cœur à l'amour inconditionnel.</p>
                     <div class="frequency-badge">🎵 Cliquez pour écouter</div>
                 </div>
-                <div class="frequency-card" onclick="playFrequency(639)" style="border-color: #00ff88; background: rgba(0, 255, 136, 0.1);">
+                <div class="frequency-card" onclick="playFrequency(639)">
                     <div class="frequency-number">639 Hz</div>
                     <h4 style="color: #ffd700;">Relations Harmoniques</h4>
                     <p>Connexion et relations interpersonnelles, unité de la famille.</p>
@@ -565,8 +600,7 @@
                     <div class="frequency-number">852 Hz</div>
                     <h4 style="color: #ffd700;">Éveil Spirituel</h4>
                     <p>Développe l'intuition et renforce la connexion spirituelle.</p>
-                    <div class="frequency-badge">🎵 Cliquez pour écouter</p>
-                </div>
+                    <div class="frequency-badge">🎵 Cliquez pour écouter</div> </div>
                 <div class="frequency-card" onclick="playFrequency(963)">
                     <div class="frequency-number">963 Hz</div>
                     <h4 style="color: #ffd700;">Connexion Divine</h4>
@@ -627,6 +661,7 @@
         <div>
             <h2 style="color: #ffd700; margin-bottom: 1rem;" id="sessionTitle">Session de Méditation</h2>
             <p id="sessionDesc">Concentrez-vous sur votre respiration.</p>
+            <p id="affirmationText">**Affirmation Générée:** Concentrez-vous sur cette zone pour voir une affirmation personnalisée.</p>
         </div>
     </div>
 
@@ -637,215 +672,266 @@
     </script>
     
     <script>
-        let uses1 = 999;
-        let uses2 = 999;
-        let isOwner = false;
-        let timer = null;
-        let audioContext = null;
-        let oscillator = null;
-        let currentFrequency = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            let uses1 = 999;
+            let uses2 = 999;
+            let isOwner = false;
+            let timer = null;
+            let audioContext = null;
+            let oscillator = null;
+            let gainNode = null; 
+            let currentFrequency = null;
 
-        // Modal propriétaire
-        function showOwnerModal() {
-            document.getElementById('ownerModal').classList.add('show');
-        }
-
-        function closeOwnerModal() {
-            document.getElementById('ownerModal').classList.remove('show');
-        }
-
-        function checkOwnerAccess() {
-            const code = document.getElementById('ownerCode').value;
-            if (code === 'MANIFESTLAB2024' || code === 'ADMIN123' || code === 'OWNER2024') {
-                isOwner = true;
-                closeOwnerModal();
-                showStatus('🔐 Accès propriétaire activé ! Interface optimisée');
+            // Dictionnaire d'affirmations
+            const affirmations = {
+                'fleur-vie': 'Je suis un être harmonieux. L\'amour divin me répare et me guide vers mon potentiel maximal. Mon énergie circule librement (528 Hz).',
+                'sri-yantra': 'L\'abondance et la prospérité coulent vers moi sans effort. Je suis un aimant puissant pour la manifestation et la création (432 Hz).',
+                'oeil-horus': 'Je suis protégé(e) de tout mal et de toute négativité. Mon intuition est forte, et ma clairvoyance m\'éclaire (741 Hz).',
+                'merkaba': 'Mon corps de lumière est activé. Je m\'élève vers des dimensions supérieures de conscience et d\'être. Je suis connecté(e) à la Source (963 Hz).',
+                'om': 'Je suis la vibration fondamentale de l\'univers. Je me libère de toutes mes peurs et de mes doutes, dans le son de l\'unité (396 Hz).',
+                'sceau': 'J\'incarne l\'équilibre parfait entre le Ciel et la Terre. Mon énergie est stable et protégée. Mon éveil spirituel est en cours (852 Hz).',
+                'spirale': 'Je suis en croissance constante et harmonieuse. Mon évolution suit le rythme parfait de l\'Univers (528 Hz).',
+                'triskel': 'J\'embrasse la transformation. Je me régénère et je purifie mon chemin de toutes les énergies stagnantes (741 Hz).',
                 
-                // Marquer visuellement
-                document.querySelector('.header').style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)';
-                document.querySelector('.logo').innerHTML = '👑 Manifestation Lab - PROPRIÉTAIRE';
-                document.querySelector('.logo').style.color = '#1a1a2e';
-            } else {
-                showStatus('❌ Code incorrect');
-            }
-        }
+                // Affirmations pour les sessions spéciales (si pas de fréquence Solfège)
+                'stress': 'Je retrouve le calme et la sérénité. Mon système nerveux s\'apaise et je suis ancré(e) dans l\'instant présent.',
+                'boost': 'Mon énergie vitale est infinie. Je suis rempli(e) de force, de motivation et de joie. Je suis vibrant(e).',
+                'detente': 'Je me permets de lâcher prise et de me reposer. Mon esprit est en paix et mon corps se régénère profondément.',
+                'coeur': 'J\'ouvre mon cœur à l\'amour inconditionnel. Je me pardonne et je pardonne aux autres, rayonnant la compassion (528 Hz).',
+                'focus': 'Mon esprit est clair et tranchant. Je me concentre sans effort sur mes objectifs et j\'atteins mes buts (Ondes Gamma).',
+                'lacher-prise': 'Je laisse aller ce que je ne peux contrôler. Je fais confiance au flux de la vie. Je suis libre de mes émotions passées (396 Hz).'
+            };
 
-        function useSymbol(type, frequency, icon, title) {
-            startSession(icon || '🌸', title || 'Symbole Sacré', `Méditation avec ${title} - Fréquence ${frequency} Hz`, frequency);
-        }
-
-        function useMeditation(type, frequency, icon, title) {
-            startSession(icon || '●', title || 'Session Spéciale', `Session ${title} avec techniques spécialisées`, frequency);
-        }
-
-        function startSession(symbol, title, desc, frequency) {
-            // 1. ARRÊT DU TIMER PRÉCÉDENT
-            if (timer) {
-                clearInterval(timer);
-                timer = null;
-            }
-            stopAudio(); 
-            document.querySelector('.audio-controls .audio-btn').textContent = '▶️ Jouer'; 
-            
-            document.getElementById('meditationSymbol').textContent = symbol;
-            document.getElementById('sessionTitle').textContent = title;
-            document.getElementById('sessionDesc').textContent = desc;
-            document.getElementById('meditationView').classList.add('show');
-            
-            currentFrequency = frequency;
-            let timeLeft = 180; // 3 minutes
-
-            // 2. DÉMARRAGE DU TIMER
-            timer = setInterval(() => {
-                let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                document.getElementById('timer').textContent = 
-                    minutes + ':' + seconds.toString().padStart(2, '0');
-                timeLeft--;
+            function generateAffirmation(type, frequency) {
+                const defaultAffirmation = 'Concentrez-vous sur ce symbole et cette fréquence pour ancrer votre intention dans votre réalité.';
+                let affirmation = affirmations[type] || defaultAffirmation;
                 
-                if (timeLeft < 0) {
-                    clearInterval(timer);
-                    closeMeditation();
-                    showStatus('Session terminée ✨');
+                // Personnalisation basée sur la fréquence si non spécifique à la session
+                if (!affirmations[type] && frequency) {
+                     switch(frequency) {
+                        case 396: affirmation = 'Je me libère de mes blocages (396 Hz). ' + defaultAffirmation; break;
+                        case 432: affirmation = 'Je suis en parfaite harmonie avec le monde (432 Hz). ' + defaultAffirmation; break;
+                        case 528: affirmation = 'L\'amour répare et manifeste ma vie (528 Hz). ' + defaultAffirmation; break;
+                        case 963: affirmation = 'Ma connexion Divine est claire et puissante (963 Hz). ' + defaultAffirmation; break;
+                     }
                 }
-            }, 1000);
-        }
-
-        function closeMeditation() {
-            document.getElementById('meditationView').classList.remove('show');
-            if (timer) clearInterval(timer);
-            stopAudio();
-        }
-
-        // Audio
-        function initAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioContext.state === 'suspended') {
-                 audioContext.resume().catch(e => console.warn("L'Audio Context n'a pas pu reprendre :", e));
-            }
-        }
-
-        function playFrequency(frequency, isSession = false) {
-            stopAudio();
-            initAudio();
-            
-            if (frequency === 0 || frequency === undefined) {
-                 showStatus('⚠️ Cette session n\'utilise pas de fréquence Solfège spécifique.');
-                 return;
+                return `**Affirmation Générée :** ${affirmation}`;
             }
             
-            oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            oscillator.type = 'sine';
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            
-            oscillator.start();
-            
-            // Animation
-            document.querySelectorAll('.frequency-card').forEach(card => {
-                card.classList.remove('playing');
-                if (card.innerHTML.includes(frequency + ' Hz')) {
-                    card.classList.add('playing');
-                }
-            });
-            
-            if (!isSession) {
-                showStatus(`🎵 Fréquence ${frequency} Hz en cours (preview 10s)...`);
-                setTimeout(() => stopAudio(), 10000); // Arrêt après 10s pour la preview
-            } else {
-                 showStatus(`🎵 Session en cours - Fréquence ${frequency} Hz`);
+            // Modal propriétaire
+            window.showOwnerModal = function() {
+                document.getElementById('ownerModal').classList.add('show');
             }
-        }
 
-        function toggleAudio() {
-            const audioBtn = document.querySelector('.audio-controls .audio-btn');
-            if (currentFrequency) {
-                if (oscillator) {
-                    stopAudio();
-                    audioBtn.textContent = '▶️ Jouer';
+            window.closeOwnerModal = function() {
+                document.getElementById('ownerModal').classList.remove('show');
+            }
+
+            window.checkOwnerAccess = function() {
+                const code = document.getElementById('ownerCode').value;
+                if (code === 'MANIFESTLAB2024' || code === 'ADMIN123' || code === 'OWNER2024') {
+                    isOwner = true;
+                    closeOwnerModal();
+                    showStatus('🔐 Accès propriétaire activé ! Interface optimisée');
+                    
+                    // Marquer visuellement
+                    document.querySelector('.header').style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)';
+                    document.querySelector('.logo').innerHTML = '👑 Manifestation Lab - PROPRIÉTAIRE';
+                    document.querySelector('.logo').style.color = '#1a1a2e';
                 } else {
-                    playFrequency(currentFrequency, true); 
-                    audioBtn.textContent = '⏸️ Pause';
+                    showStatus('❌ Code incorrect');
                 }
-            } else {
-                showStatus('⚠️ Aucune fréquence Solfège associée à cette session. Audio non démarré.');
             }
-        }
 
-        function stopAudio() {
-            if (oscillator) {
-                try { 
-                    if (audioContext && audioContext.state !== 'closed') {
-                         oscillator.stop(audioContext.currentTime);
+            window.useSymbol = function(type, frequency, icon, title) {
+                startSession(type, icon || '🌸', title || 'Symbole Sacré', `Méditation avec ${title} - Fréquence ${frequency} Hz`, frequency);
+            }
+
+            window.useMeditation = function(type, frequency, icon, title) {
+                startSession(type, icon || '●', title || 'Session Spéciale', `Session ${title} avec techniques spécialisées`, frequency);
+            }
+
+            function startSession(type, symbol, title, desc, frequency) {
+                // 1. ARRÊT DU TIMER PRÉCÉDENT
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+                stopAudio(); 
+                document.querySelector('.audio-controls .audio-btn').textContent = '▶️ Jouer'; 
+                
+                // 2. MISE À JOUR DU CONTENU
+                document.getElementById('meditationSymbol').textContent = symbol;
+                document.getElementById('sessionTitle').textContent = title;
+                document.getElementById('sessionDesc').textContent = desc;
+                
+                // AJOUT: Générer et afficher l'affirmation
+                document.getElementById('affirmationText').innerHTML = generateAffirmation(type, frequency);
+
+                document.getElementById('meditationView').classList.add('show');
+                
+                currentFrequency = frequency;
+                let timeLeft = 180; // 3 minutes
+
+                // 3. DÉMARRAGE DU TIMER
+                timer = setInterval(() => {
+                    let minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    document.getElementById('timer').textContent = 
+                        minutes + ':' + seconds.toString().padStart(2, '0');
+                    timeLeft--;
+                    
+                    if (timeLeft < 0) {
+                        clearInterval(timer);
+                        closeMeditation();
+                        showStatus('Session terminée ✨');
                     }
-                } catch(e) {}
-                oscillator = null;
+                }, 1000);
             }
-            document.querySelectorAll('.frequency-card').forEach(card => {
-                card.classList.remove('playing');
-            });
-             const audioBtn = document.querySelector('.audio-controls .audio-btn');
-            if(audioBtn) audioBtn.textContent = '▶️ Jouer';
-        }
 
-        function showStatus(message) {
-            const status = document.getElementById('status');
-            status.textContent = message;
-            status.style.display = 'block';
-            setTimeout(() => status.style.display = 'none', 3000);
-        }
-
-        // Navigation fluide
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) target.scrollIntoView({behavior: 'smooth'});
-            });
-        });
-
-        // Fermeture avec Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeOwnerModal();
-                closeMeditation();
+            window.closeMeditation = function() {
+                document.getElementById('meditationView').classList.remove('show');
+                if (timer) clearInterval(timer);
                 stopAudio();
             }
-        });
 
-        // --- LOGIQUE D'INTÉGRATION PAYPAL ---
-        function renderPayPalButtons() {
-            try {
-                // BOUTON VIP (19€) - Utilise l'ID fourni: 24VD5DDMWZZ7Q
-                paypal.HostedButtons({
-                    hostedButtonId: "24VD5DDMWZZ7Q", 
-                }).render("#paypal-container-19");
-
-                console.log("Le bouton PayPal VIP (19€) est rendu.");
-
-            } catch (e) {
-                console.error("Erreur lors du rendu du bouton PayPal. Vérifiez le Script SDK et l'ID :", e);
+            // Audio
+            function initAudio() {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                // Tente de reprendre l'audio context si suspendu (nécessaire après une interaction utilisateur)
+                if (audioContext.state === 'suspended') {
+                     audioContext.resume().catch(e => console.warn("L'Audio Context n'a pas pu reprendre :", e));
+                }
             }
-        }
 
-        // Déclenche l'affichage après le chargement du SDK
-        if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
-            renderPayPalButtons();
-        } else {
-             // Fallback pour s'assurer que si le script SDK est chargé après, il appelle la fonction
-             window.addEventListener('load', () => {
-                 if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
-                     renderPayPalButtons();
-                 }
-             });
-        }
+            window.playFrequency = function(frequency, isSession = false) {
+                stopAudio(); // 1. Arrête et déconnecte l'ancien oscillateur
+                initAudio();
+                
+                if (frequency === 0 || frequency === undefined) {
+                     showStatus('⚠️ Cette session n\'utilise pas de fréquence Solfège spécifique.');
+                     return;
+                }
+                
+                oscillator = audioContext.createOscillator();
+                gainNode = audioContext.createGain(); // Assigne à la variable globale
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'sine';
+                // Gain faible pour éviter les sons trop agressifs
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                
+                oscillator.start();
+                
+                // Animation
+                document.querySelectorAll('.frequency-card').forEach(card => {
+                    card.classList.remove('playing');
+                    // On cherche le texte de la fréquence dans le contenu de la carte
+                    if (card.querySelector('.frequency-number')?.textContent.includes(frequency + ' Hz')) {
+                        card.classList.add('playing');
+                    }
+                });
+                
+                if (!isSession) {
+                    showStatus(`🎵 Fréquence ${frequency} Hz en cours (preview 10s)...`);
+                    setTimeout(() => stopAudio(), 10000); // Arrêt après 10s pour la preview
+                } else {
+                     showStatus(`🎵 Session en cours - Fréquence ${frequency} Hz`);
+                }
+            }
+
+            // Correction du chevauchement: DÉCONNEXION forcée
+            window.stopAudio = function() {
+                if (oscillator) {
+                    try { 
+                        if (audioContext && audioContext.state !== 'closed') {
+                             // DÉCONNEXION avant l'arrêt pour s'assurer que l'oscillateur n'est plus branché
+                             if (gainNode) gainNode.disconnect(); 
+                             oscillator.disconnect();
+                             // Arrêter l'oscillateur
+                             oscillator.stop(audioContext.currentTime);
+                        }
+                    } catch(e) {
+                        console.warn("Erreur lors de l'arrêt/déconnexion de l'oscillateur :", e);
+                    }
+                    // Réinitialiser les références globales
+                    oscillator = null;
+                    gainNode = null;
+                }
+                
+                document.querySelectorAll('.frequency-card').forEach(card => {
+                    card.classList.remove('playing');
+                });
+                 const audioBtn = document.querySelector('.audio-controls .audio-btn');
+                if(audioBtn) audioBtn.textContent = '▶️ Jouer';
+            }
+
+            window.toggleAudio = function() {
+                const audioBtn = document.querySelector('.audio-controls .audio-btn');
+                if (currentFrequency) {
+                    if (oscillator) {
+                        stopAudio();
+                        audioBtn.textContent = '▶️ Jouer';
+                    } else {
+                        playFrequency(currentFrequency, true); 
+                        audioBtn.textContent = '⏸️ Pause';
+                    }
+                } else {
+                    showStatus('⚠️ Aucune fréquence Solfège associée à cette session. Audio non démarré.');
+                }
+            }
+
+            function showStatus(message) {
+                const status = document.getElementById('status');
+                status.textContent = message;
+                status.style.display = 'block';
+                setTimeout(() => status.style.display = 'none', 3000);
+            }
+
+            // Navigation fluide
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(a.getAttribute('href'));
+                    if (target) target.scrollIntoView({behavior: 'smooth'});
+                });
+            });
+
+            // Fermeture avec Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeOwnerModal();
+                    closeMeditation();
+                    stopAudio();
+                }
+            });
+
+            // --- LOGIQUE D'INTÉGRATION PAYPAL ---
+            function renderPayPalButtons() {
+                try {
+                    // BOUTON VIP (19€) - Utilise l'ID fourni: 24VD5DDMWZZ7Q
+                    if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
+                        paypal.HostedButtons({
+                            hostedButtonId: "24VD5DDMWZZ7Q", 
+                        }).render("#paypal-container-19");
+                        console.log("Le bouton PayPal VIP (19€) est rendu.");
+                    }
+                } catch (e) {
+                    console.error("Erreur lors du rendu du bouton PayPal. Vérifiez le Script SDK et l'ID :", e);
+                }
+            }
+
+            // Déclenche l'affichage après le chargement complet du SDK et du DOM
+            window.addEventListener('load', renderPayPalButtons);
+            if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
+                renderPayPalButtons();
+            }
+        }); 
     </script>
 </body>
 </html>
