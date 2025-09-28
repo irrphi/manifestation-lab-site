@@ -187,15 +187,17 @@
         .timer { font-size: 2rem; color: #ffd700; margin-bottom: 1rem; }
         .audio-controls { margin: 1rem 0; display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; }
         .audio-btn {
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid #ffd700;
-            color: #ffd700;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .audio-btn:hover { background: #ffd700; color: #1a1a2e; }
+        .session-audio-btn {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+        .session-audio-btn:hover { background: #ffd700; color: #1a1a2e; }
         .status {
             position: fixed;
             top: 100px;
@@ -266,7 +268,89 @@
                 border: 1px solid #ddd;
             }
         }
+
+        /* Styles Spécifiques au Générateur Date/Prénom */
+        #legacy-generator .input-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #4a5a7a;
+            border-radius: 8px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-color: #ff6b6b;
+        }
+        #legacy-generator .frequency-list h2 {
+             color: #ff6b6b;
+        }
+        #legacy-generator .frequency-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dotted #4a5a7a;
+        }
+        #legacy-generator .frequency-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Styles Spécifiques au Générateur Premium */
+        #premium-tools .card {
+            border-color: #ff00ff; /* Magenta */
+            background: rgba(255, 0, 255, 0.1);
+        }
+        #premium-tools .section-title {
+            color: #ff00ff;
+        }
+        /* Nouvelle règle pour le grid Premium */
+        #premium-tools .grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        }
+
+        .locked-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .lock-icon {
+            font-size: 3rem;
+            color: #ff00ff;
+            margin-bottom: 10px;
+        }
+        .lock-text {
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .binaural-info {
+            font-size: 0.7rem; /* Réduit la taille pour 5 cartes */
+            color: #ccc;
+            margin-top: 10px;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+        .premium-btn {
+            background: linear-gradient(45deg, #ff00ff, #ff69b4); 
+            color: white;
+            border: 1px solid #ff00ff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
   </style>
+  <script src="https://www.paypal.com/sdk/js?client-id=ASb7430541783-aI8321041924637&vault=true&intent=subscription" data-sdk-integration-source="button-hosted"></script>
 </head>
 <body>
   <header class="header">
@@ -274,18 +358,23 @@
       Manifestation Lab
     </div>
     <nav class="nav">
-      <a href="#symbols">Symboles</a> <a href="#sessions">Sessions</a> <a href="#ai-generator">Générateur AI</a> <a href="#vibrational-blueprint-generator">Schéma Vibratoire</a> <a href="#ai-exauceur">Vidéo Exauceur</a> <a href="#science">Science</a> <a href="#pricing">Offres</a> <a href="#" onclick="showOwnerModal()">🔐 Propriétaire</a>
+      <a href="#symbols">Symboles</a> 
+      <a href="#sessions">Sessions</a> 
+      <a href="#ai-generator">Générateur AI</a> 
+      <a href="#vibrational-blueprint-generator">Schéma Vibratoire</a> 
+      <a href="#premium-tools">⭐ Premium</a> 
+      <a href="#legacy-generator">Générateur Perso</a> 
+      <a href="#ai-exauceur">Bonus</a> 
+      <a href="#pricing">Offres</a> 
+      <a href="#" onclick="showOwnerModal()">🔐 Propriétaire</a>
     </nav>
   </header>
   <div id="ownerModal" class="modal">
     <div class="modal-content">
       <button class="close-btn" onclick="closeOwnerModal()">×</button>
-      <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">🔐 Accès Propriétaire</h3>
+      <h3 style="color: #ffd700; text-align: center; margin-bottom: 1rem;">🔐 Accès Propriétaire/Premium</h3>
       <p style="text-align: center; color: #ccc; margin-bottom: 2rem;">Entrez votre code :</p><input type="password" id="ownerCode" placeholder="Code propriétaire" class="form-input"> <button onclick="checkOwnerAccess()" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Valider</button>
-      <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,191,255,0.1); border-radius: 8px; font-size: 0.8rem; color: #00bfff;">
-        💡 <strong>Codes :</strong> MANIFESTLAB2024, ADMIN123, OWNER2024
       </div>
-    </div>
   </div>
   <section class="hero section">
     <h1>Transformez Votre Vie</h1>
@@ -315,8 +404,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528, '🌸', 'Fleur de Vie')">
-          🌸
+        <div class="symbol-icon" onclick="useSymbol('fleur-vie', 528, 'Fleur.png', 'Fleur de Vie')" style="background: none; padding: 0;">
+          <img src="Fleur.png" alt="Symbole de la Fleur de Vie" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Fleur de Vie</h3>
         <p style="color: #00bfff; font-weight: bold;">Harmonie + 528 Hz</p>
@@ -332,8 +421,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('sri-yantra', 432, '🔺', 'Sri Yantra')">
-          🔺
+        <div class="symbol-icon" onclick="useSymbol('sri-yantra', 432, 'Sri Yantra.png', 'Sri Yantra')" style="background: none; padding: 0;">
+          <img src="Sri Yantra.png" alt="Symbole Sri Yantra" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Sri Yantra</h3>
         <p style="color: #00bfff; font-weight: bold;">Manifestation + 432 Hz</p>
@@ -349,8 +438,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('oeil-horus', 741, '👁', 'Œil d\'Horus')">
-          👁
+        <div class="symbol-icon" onclick="useSymbol('oeil-horus', 741, 'Œil Horus.png', 'Œil d\'Horus')" style="background: none; padding: 0;">
+          <img src="Œil Horus.png" alt="Symbole Œil d'Horus" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Œil d'Horus</h3>
         <p style="color: #00bfff; font-weight: bold;">Protection + 741 Hz</p>
@@ -366,8 +455,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('merkaba', 963, '⭐', 'Merkaba')">
-          ⭐
+        <div class="symbol-icon" onclick="useSymbol('merkaba', 963, 'Merkaba.png', 'Merkaba')" style="background: none; padding: 0;">
+          <img src="Merkaba.png" alt="Symbole Merkaba" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Merkaba</h3>
         <p style="color: #00bfff; font-weight: bold;">Élévation + 963 Hz</p>
@@ -383,8 +472,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('om', 396, '🕉️', 'Om Sacré')">
-          🕉️
+        <div class="symbol-icon" onclick="useSymbol('om', 396, 'Om Sacré.png', 'Om Sacré')" style="background: none; padding: 0;">
+          <img src="Om Sacré.png" alt="Symbole Om Sacré" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Om Sacré</h3>
         <p style="color: #00bfff; font-weight: bold;">Vibration + 396 Hz</p>
@@ -400,8 +489,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('sceau', 852, '🔯', 'Sceau de Salomon')">
-          🔯
+        <div class="symbol-icon" onclick="useSymbol('sceau', 852, 'Sceau de Salomon.png', 'Sceau de Salomon')" style="background: none; padding: 0;">
+          <img src="Sceau de Salomon.png" alt="Symbole Sceau de Salomon" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Sceau de Salomon</h3>
         <p style="color: #00bfff; font-weight: bold;">Équilibre + 852 Hz</p>
@@ -417,8 +506,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('spirale', 528, '🌀', 'Spirale Dorée')">
-          🌀
+        <div class="symbol-icon" onclick="useSymbol('spirale', 528, 'Spirale.png', 'Spirale Dorée')" style="background: none; padding: 0;">
+          <img src="Spirale.png" alt="Symbole Spirale Dorée" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Spirale Dorée</h3>
         <p style="color: #00bfff; font-weight: bold;">Croissance + 528 Hz</p>
@@ -434,8 +523,8 @@
         <div class="badge">
           GRATUIT
         </div>
-        <div class="symbol-icon" onclick="useSymbol('triskel', 741, '🔥', 'Triskel Celtique')">
-          🔥
+        <div class="symbol-icon" onclick="useSymbol('triskel', 741, 'Triskel.png', 'Triskel Celtique')" style="background: none; padding: 0;">
+          <img src="Triskel.png" alt="Symbole Triskel Celtique" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <h3 style="color: #ffd700;">Triskel Celtique</h3>
         <p style="color: #00bfff; font-weight: bold;">Transformation + 741 Hz</p>
@@ -557,7 +646,7 @@
     <p style="text-align: center; color: #aaa; font-style: italic; font-size: 0.9rem; margin-top: -2rem; margin-bottom: 2rem;">Même si l'outil a des fonctions avancées, variez vos mots-clés pour des réponses uniques !</p>
     <div style="text-align: center; max-width: 600px; margin: 0 auto; padding: 2rem; background: rgba(0, 255, 136, 0.1); border-radius: 15px; border: 1px solid #00ff88;">
       <p style="color: #ccc; margin-bottom: 1.5rem;">Entrez votre intention (vœu, objectif, affirmation positive) pour que notre AI calcule et joue la **Fréquence Vibratoire d'Alignement** la plus puissante.</p>
-      <textarea id="intentionInput" placeholder="Ex: Je manifeste l'abondance financière illimitée maintenant." rows="4" class="form-input" style="height: auto;"></textarea> <button onclick="generateIntentionFrequency()" class="btn btn-primary" style="background: linear-gradient(45deg, #00ff88, #00cc6a); margin-top: 1.5rem; width: 100%;">⚡ Analyser & Jouer l'Accord de Manifestation</button>
+      <textarea id="intentionInput" placeholder="Ex: Je manifeste l'abondance financière illimitée maintenant." rows="4" class="form-input" style="height: auto;"></textarea> <button onclick="generateIntentionFrequency()" class="btn btn-primary" style="background: linear-gradient(45deg, #00ff88, #00cc6a); margin-top: 1.5rem; width: 100%;">⚡ Analyser & Jouer l'Accord de Manifestation (12s)</button>
       <div id="aiResult" style="margin-top: 2rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #ffd700; color: #ffd700; font-size: 1.2rem; font-weight: bold; min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         Le résultat de l'analyse s'affichera ici et le son jouera automatiquement.
       </div>
@@ -569,603 +658,712 @@
       <p style="color: #ccc; margin-bottom: 1.5rem;">Entrez vos objectifs pour que notre AI combine symboles et fréquences dans un puissant schéma vibratoire personnel.</p>
       <div style="display: flex; flex-direction: column; gap: 1rem;">
         <input type="text" id="goal-amour" placeholder="Ex: Mon objectif en amour..." class="form-input"> <input type="text" id="goal-carriere" placeholder="Ex: Mon objectif de carrière..." class="form-input"> <input type="text" id="goal-sante" placeholder="Ex: Mon objectif de santé..." class="form-input">
-      </div><button onclick="generateVibrationalBlueprint()" class="btn btn-primary" style="background: linear-gradient(45deg, #9370db, #7b68ee); margin-top: 1.5rem; width: 100%;">✨ Générer mon Schéma Vibratoire</button>
+      </div><button onclick="generateVibrationalBlueprint()" class="btn btn-primary" style="background: linear-gradient(45deg, #9370db, #7b68ee); margin-top: 1.5rem; width: 100%;">✨ Générer mon Schéma Vibratoire (12s)</button>
       <div id="blueprintResult" style="margin-top: 2rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #ffd700; color: #ffd700; font-size: 1.2rem; font-weight: bold; min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         Votre schéma unique s'affichera ici.
       </div>
     </div>
   </section>
-  <section id="ai-exauceur" class="section">
-    <h2 class="section-title" style="color: #00bfff;">Vidéo Exauceur de Vœux AI</h2>
-    <div style="text-align: center; font-size: 1.2rem; color: #ccc; margin-bottom: 3rem;">
-      Découvrez la logique et la puissance du processus d'alignement.
+  
+  <section id="legacy-generator" class="section">
+    <h2 class="section-title" style="color: #ff6b6b;">Générateur de Fréquence Personnel (Legacy)</h2>
+    <div style="text-align: center; max-width: 500px; margin: 0 auto; padding: 2rem; background: rgba(255, 107, 107, 0.1); border-radius: 15px; border: 1px solid #ff6b6b;">
+      <p style="color: #ccc; margin-bottom: 1.5rem;">Entrez votre nom et votre date de naissance pour générer vos fréquences vibratoires personnelles (méthode de numérologie traditionnelle).</p>
+      <div class="input-group">
+        <input type="text" id="nameInput" placeholder="Votre prénom et nom" class="form-input"> 
+        <input type="date" id="dobInput" class="form-input"> 
+      </div>
+      <button onclick="calculateLegacyFrequencies()" class="btn btn-primary" style="background: linear-gradient(45deg, #ff6b6b, #ee5a52); width: 100%;">🔢 Calculer mes Fréquences</button>
+      <div id="legacyResult" class="frequency-list" style="margin-top: 2rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #ffd700; color: #ffd700; min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h2 style="font-size: 1.2rem; font-weight: bold;">Vos Fréquences Personnelles :</h2>
+        <p style="color: #ccc;">Le résultat du calcul s'affichera ici.</p>
+      </div>
     </div>
-    <div class="video-responsive">
+  </section>
+  
+  <section id="ai-exauceur" class="section">
+    <h2 class="section-title">Bonus à tester</h2>
+    <div style="background: rgba(255, 107, 107, 0.1); padding: 1.5rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 107, 107, 0.3);">
+        <h4 style="color: #ff6b6b; margin-bottom: 1rem; text-align: center;">Fréquences Solfège & Leurs Bienfaits</h4>
+        <div class="frequency-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">396 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Libération des Peurs</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Transforme la culpabilité en joie, libère des énergies bloquées.</p>
+                <p onclick="playPureTone(396, '396 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">432 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Harmonie Naturelle</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Fréquence de la nature, apaise le système nerveux.</p>
+                <p onclick="playPureTone(432, '432 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">528 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Fréquence de l'Amour</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Répare l'ADN et ouvre le cœur à l'amour inconditionnel.</p>
+                <p onclick="playPureTone(528, '528 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">639 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Relations Harmoniques</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Connexion et relations interpersonnelles, unité de la famille.</p>
+                <p onclick="playPureTone(639, '639 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">741 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Expression & Créativité</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Stimule l'expression personnelle et résolution de problèmes.</p>
+                <p onclick="playPureTone(741, '741 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">852 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Éveil Spirituel</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Développe l'intuition et renforce la connexion spirituelle.</p>
+                <p onclick="playPureTone(852, '852 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+            <div style="text-align: center; padding: 0.5rem; border: 1px dashed #ff6b6b; border-radius: 5px;">
+                <p style="font-weight: bold; color: #ffd700;">963 Hz</p>
+                <p style="font-size: 0.8rem; color: #ccc;">Connexion Divine</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 0.3rem;">Active la glande pinéale et facilite l'éveil spirituel.</p>
+                <p onclick="playPureTone(963, '963 Hz', 12000)" style="cursor: pointer; color: #00ff88; font-weight: bold; margin-top: 0.5rem;">🎵 Cliquez pour écouter (12s)</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: left; max-width: 800px; margin: 3rem auto 3rem; padding: 2rem; background: rgba(0, 191, 255, 0.1); border-radius: 15px; border: 1px solid #00bfff;">
+        <h3 style="color: #00bfff; margin-bottom: 1rem;">La Science Derrière la Manifestation</h3>
+        <h4 style="color: #ffd700; margin-bottom: 1rem;">Vibration, Fréquence et Cerveau</h4>
+        <p>Chaque pensée et chaque émotion émet une **fréquence vibratoire** mesurable. Le Manifestation Lab utilise deux piliers scientifiques pour vous aider à atteindre l'alignement :</p>
+        <ul style="list-style-type: disc; margin: 1rem 0 0 1.5rem; color: #ccc; padding-left: 0;">
+            <li style="margin-bottom: 0.5rem;"><strong>La Résonance Harmonique :</strong> Les symboles sacrés et les fréquences Solfège (comme 528 Hz, la fréquence de l'amour) agissent comme des **diapasons énergétiques**. L'écoute du ton pur force votre propre champ énergétique à essayer de s'harmoniser avec la fréquence ciblée, un phénomène connu sous le nom d'**entraînement vibratoire**.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>L'Entraînement des Ondes Cérébrales (Premium) :</strong> Les **battements binauraux** (deux fréquences légèrement différentes jouées séparément dans chaque oreille) poussent le cerveau à créer une troisième fréquence interne. C'est l'**entraînement d'ondes cérébrales**, utilisé pour induire des états de concentration (Gamma/Beta), de relaxation (Alpha/Thêta) ou de sommeil profond (Delta).</li>
+        </ul>
+    </div>
+    <div class="video-responsive" style="margin-top: 3rem;">
+      <iframe src="https://www.youtube.com/embed/ZDAwYjZJRZY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <h3 style="text-align: center; color: #ffd700; margin-bottom: 1rem; margin-top: 1rem;">Preuve Vidéo : Les Fréquences Formant la Fleur de Vie</h3>
+    <p style="text-align: center; color: #aaa; margin-top: -1rem; margin-bottom: 2rem;">La Cymatique (la visualisation du son) montre comment les vibrations créent des formes géométriques sacrées (Fleur de Vie, etc.).</p>
+    <div class="video-responsive" style="margin-top: 3rem;">
       <iframe src="https://www.youtube.com/embed/062Ja98aBkM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div style="text-align: center; margin-top: 3rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #ffd700;">
-      <p style="color: #ffd700; font-weight: bold;">Étape 1 : Regardez cette vidéo pour comprendre le processus.</p>
-      <p style="color: #ccc; margin-top: 0.5rem; font-size: 0.9rem;">(Utilisez ensuite l'outil de génération pour créer votre propre accord)</p>
-    </div>
-  </section>
-  <section id="new-video" class="section">
-    <div style="text-align: center; font-size: 1.2rem; color: #ccc; margin-bottom: 3rem;">
-      Expérimentez aussi le pouvoir de la manifestation avec cette vidéo bonus.
-    </div>
-    <div class="video-responsive">
+    <h3 style="text-align: center; color: #ffd700; margin-bottom: 1rem; margin-top: 1rem;">Exercice puissant de Manifestation</h3>
+    <div class="video-responsive" style="margin-top: 3rem;">
       <iframe src="https://www.youtube.com/embed/xTKgCvTsd6g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-  </section>
-  <section id="science" class="section">
-    <h2 class="section-title">Pourquoi Cette Approche Fonctionne ?</h2>
-    <p style="text-align: center; font-size: 1.2rem; color: #ccc; margin-bottom: 1.5rem;">Notre programme repose sur la convergence de la **physique quantique**, des **neurosciences** et des **traditions ancestrales**. Chaque élément, du symbole à la fréquence, est conçu pour aligner votre énergie interne avec les lois universelles de l'attraction et de la résonance.</p>
-    <p style="text-align: center; font-size: 1.2rem; color: #00bfff; margin-bottom: 3rem; font-style: italic;">*Une synthèse entre recherches avant-gardistes et traditions millénaires*</p>
+    <h3 style="text-align: center; color: #ffd700; margin-bottom: 1rem; margin-top: 1rem;">Autre Vidéo à expérimenter</h3> 
+    <div class="video-responsive" style="margin-top: 3rem;">
+      <iframe src="https://www.youtube.com/embed/R19k6e-jE5g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    </section>
+  
+  <section id="premium-tools" class="section">
+    <h2 class="section-title">⭐ Outils Premium Avancés ⭐</h2>
+    <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 2rem; background: rgba(255, 0, 255, 0.1); border-radius: 15px; border: 1px solid #ff00ff;">
+      <p style="color: #ccc; margin-bottom: 1.5rem;">Accédez à des outils exclusifs pour démultiplier vos capacités de manifestation. Ces sessions utilisent des fréquences isochroniques et binaurales pour une immersion et un impact maximum. </p>
+    </div>
     <div class="grid">
       <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          🎵
+        <div class="locked-overlay" onclick="showPricing()">
+          <span class="lock-icon">🔒</span>
+          <p class="lock-text">PREMIUM</p>
         </div>
-        <h3 style="color: #ffd700;">Fréquences Thérapeutiques</h3>
-        <p>Les fréquences spécifiques (396-963 Hz) sont utilisées depuis des millénaires pour le bien-être.</p>
+        <div class="symbol-icon" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">
+          👑
+        </div>
+        <h3 style="color: #ff00ff;">Activation Hypothalamus</h3>
+        <p style="color: #00bfff; font-weight: bold;">ADN + 7.83 Hz (Schumann)</p>
+        <div class="frequency-badge" style="background: rgba(255, 0, 255, 0.2); color: #ff00ff;">
+          🎵 Binaural Theta
+        </div>
+        <p>Alignement aux fréquences terrestres pour une régénération profonde. </p>
+        <div class="binaural-info">
+          🎧 Fréquences Binaurales (nécessite écouteurs)
+        </div>
+        <button class="premium-btn" onclick="useMeditation('hypothalamus', 7.83, '👑', 'Activation Hypothalamus')" disabled>Démarrer</button>
       </div>
       <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          🧠
+        <div class="locked-overlay" onclick="showPricing()">
+          <span class="lock-icon">🔒</span>
+          <p class="lock-text">PREMIUM</p>
         </div>
-        <h3 style="color: #ffd700;">Ondes Cérébrales & Conscience</h3>
-        <p>Les fréquences et méditations ciblent les ondes (Alpha, Thêta, Gamma) pour moduler la conscience et le focus.</p>
+        <div class="symbol-icon" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">
+          💎
+        </div>
+        <h3 style="color: #ff00ff;">Nettoyage Karmique</h3>
+        <p style="color: #00bfff; font-weight: bold;">Libération + 10 Hz (Alpha)</p>
+        <div class="frequency-badge" style="background: rgba(255, 0, 255, 0.2); color: #ff00ff;">
+          🎵 Isochronique Alpha
+        </div>
+        <p>Efface les anciens schémas et accélère la manifestation de la richesse. </p>
+        <div class="binaural-info">
+          🎧 Fréquences Isochroniques
+        </div>
+        <button class="premium-btn" onclick="useMeditation('nettoyage', 10, '💎', 'Nettoyage Karmique')" disabled>Démarrer</button>
       </div>
       <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          🔬
+        <div class="locked-overlay" onclick="showPricing()">
+          <span class="lock-icon">🔒</span>
+          <p class="lock-text">PREMIUM</p>
         </div>
-        <h3 style="color: #ffd700;">Communication Quantique</h3>
-        <p>Les recherches en physique quantique suggèrent que la conscience pourrait influencer la matière à distance.</p>
+        <div class="symbol-icon" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">
+          🚀
+        </div>
+        <h3 style="color: #ff00ff;">Projection Quantique</h3>
+        <p style="color: #00bfff; font-weight: bold;">Vitesse + 4 Hz (Theta)</p>
+        <div class="frequency-badge" style="background: rgba(255, 0, 255, 0.2); color: #ff00ff;">
+          🎵 Binaural Theta
+        </div>
+        <p>Vibration rapide pour un envoi de pensées clair et puissant dans le champ quantique.</p>
+        <div class="binaural-info">
+          🎧 Fréquences Binaurales (nécessite écouteurs)
+        </div>
+        <button class="premium-btn" onclick="useMeditation('projection', 4, '🚀', 'Projection Quantique')" disabled>Démarrer</button>
       </div>
       <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          ⚡
+        <div class="locked-overlay" onclick="showPricing()">
+          <span class="lock-icon">🔒</span>
+          <p class="lock-text">PREMIUM</p>
         </div>
-        <h3 style="color: #ffd700;">Symboles Énergétiques</h3>
-        <p>La géométrie sacrée canalise des champs énergétiques subtils, créant des résonances mesurables.</p>
+        <div class="symbol-icon" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">
+          💰
+        </div>
+        <h3 style="color: #ff00ff;">Richessse Instantanée</h3>
+        <p style="color: #00bfff; font-weight: bold;">Attraction + 111 Hz</p>
+        <div class="frequency-badge" style="background: rgba(255, 0, 255, 0.2); color: #ff00ff;">
+          🎵 Pure Tone
+        </div>
+        <p>Fréquence angélique pour ouvrir les portes de l'abondance matérielle. (Non-binaural)</p>
+        <div class="binaural-info">
+          👂🏼 Fréquence Isochronique (non-binaurale)
+        </div>
+        <button class="premium-btn" onclick="useMeditation('richesse', 111, '💰', 'Richesse Instantanée')" disabled>Démarrer</button>
       </div>
       <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          🌍
+        <div class="locked-overlay" onclick="showPricing()">
+          <span class="lock-icon">🔒</span>
+          <p class="lock-text">PREMIUM</p>
         </div>
-        <h3 style="color: #ffd700;">Réseaux Universels</h3>
-        <p>Notre réalité est structurée par des réseaux d'énergie. Les symboles agissent comme des "clés".</p>
-      </div>
-      <div class="card">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">
-          🧪
+        <div class="symbol-icon" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">
+          🧘‍♀️
         </div>
-        <h3 style="color: #ffd700;">Vibration et Résonance</h3>
-        <p>Tout dans l'univers est vibration. Les fréquences résonnent avec nos centres énergétiques (chakras).</p>
-      </div>
-    </div>
-    <div style="background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 20px; border: 2px solid rgba(255, 215, 0, 0.3); margin-top: 3rem;">
-      <h3 style="color: #ffd700; text-align: center; margin-bottom: 2rem;">Fréquences Solfège & Leurs Bienfaits</h3>
-      <div class="frequency-grid">
-        <div class="frequency-card" onclick="playFrequency(396)">
-          <div class="frequency-number">
-            396 Hz
-          </div>
-          <h4 style="color: #ffd700;">Libération des Peurs</h4>
-          <p>Transforme la culpabilité en joie, libère des énergies bloquées.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
+        <h3 style="color: #ff00ff;">Hypnose Profonde</h3>
+        <p style="color: #00bfff; font-weight: bold;">Subconscient + 0.5 Hz (Delta)</p>
+        <div class="frequency-badge" style="background: rgba(255, 0, 255, 0.2); color: #ff00ff;">
+          🎵 Binaural Delta
         </div>
-        <div class="frequency-card" onclick="playFrequency(432)" style="border-color: #00bfff; background: rgba(0, 191, 255, 0.1);">
-          <div class="frequency-number">
-            432 Hz
-          </div>
-          <h4 style="color: #ffd700;">Harmonie Naturelle</h4>
-          <p>Fréquence de la nature, apaise le système nerveux.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
+        <p>Reprogrammation directe du subconscient pour ancrer de nouvelles croyances positives.</p>
+        <div class="binaural-info">
+          🎧 Fréquences Binaurales (nécessite écouteurs)
         </div>
-        <div class="frequency-card" onclick="playFrequency(528)" style="border-color: #00bfff; background: rgba(0, 191, 255, 0.1);">
-          <div class="frequency-number">
-            528 Hz
-          </div>
-          <h4 style="color: #ffd700;">Fréquence de l'Amour</h4>
-          <p>Répare l'ADN et ouvre le cœur à l'amour inconditionnel.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
-        </div>
-        <div class="frequency-card" onclick="playFrequency(639)" style="border-color: #00ff88; background: rgba(0, 255, 136, 0.1);">
-          <div class="frequency-number">
-            639 Hz
-          </div>
-          <h4 style="color: #ffd700;">Relations Harmoniques</h4>
-          <p>Connexion et relations interpersonnelles, unité de la famille.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
-        </div>
-        <div class="frequency-card" onclick="playFrequency(741)">
-          <div class="frequency-number">
-            741 Hz
-          </div>
-          <h4 style="color: #ffd700;">Expression & Créativité</h4>
-          <p>Stimule l'expression personnelle et résolution de problèmes.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
-        </div>
-        <div class="frequency-card" onclick="playFrequency(852)">
-          <div class="frequency-number">
-            852 Hz
-          </div>
-          <h4 style="color: #ffd700;">Éveil Spirituel</h4>
-          <p>Développe l'intuition et renforce la connexion spirituelle.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
-        </div>
-        <div class="frequency-card" onclick="playFrequency(963)">
-          <div class="frequency-number">
-            963 Hz
-          </div>
-          <h4 style="color: #ffd700;">Connexion Divine</h4>
-          <p>Active la glande pinéale et facilite l'éveil spirituel.</p>
-          <div class="frequency-badge">
-            🎵 Cliquez pour écouter
-          </div>
-        </div>
+        <button class="premium-btn" onclick="useMeditation('hypnose', 0.5, '🧘‍♀️', 'Hypnose Profonde')" disabled>Démarrer</button>
       </div>
     </div>
   </section>
+  
   <section id="pricing" class="section">
-    <h2 class="section-title">Sélection d'Offres exceptionnelles</h2>
+    <h2 class="section-title" style="color: #ff00ff;">Accès Premium & Outils de Manifestation Avancée</h2>
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem; padding: 2rem; background: rgba(255, 0, 255, 0.1); border-radius: 15px; border: 1px solid #ff00ff;">
+      <h3 style="color: #ff00ff; margin-bottom: 1rem;">🔑 Pourquoi Passer au Premium ?</h3>
+      <ul style="text-align: left; list-style-type: '⭐ '; margin: 0 auto; max-width: 500px; padding-left: 1.5rem; line-height: 2;">
+          <li>Accès aux **5 Ondes Cérébrales Binaurales** (Delta, Thêta, Alpha, Beta, Gamma) pour induire un état de manifestation spécifique.</li>
+          <li>C'est l'outil le plus puissant pour **synchroniser votre cerveau** avec vos intentions.</li>
+      </ul>
+    </div>
+    
     <div class="pricing-grid">
-      <div class="card" style="border-color: #00ff88; background: rgba(0, 255, 136, 0.1);">
-        <h3 style="color: #00ff88;">Accès Gratuit</h3>
-        <div style="font-size: 3rem; color: #00ff88; font-weight: bold;">
-          0€
-        </div>
-        <p style="color: #ffd700;">Toujours disponible</p>
-        <ul style="list-style: none; margin: 1.5rem 0; text-align: left;">
-          <li style="padding: 0.5rem 0;">✓ 8 Symboles sacrés</li>
-          <li style="padding: 0.5rem 0;">✓ 6 Sessions spéciales</li>
-          <li style="padding: 0.5rem 0;">✓ Fréquences thérapeutiques</li>
-          <li style="padding: 0.5rem 0;">✓ Exercice de respiration</li>
-          <li style="padding: 0.5rem 0;">✓ Générateurs AI</li>
-          <li style="padding: 0.5rem 0;">✓ Vidéo Exauceur</li>
-          <li style="padding: 0.5rem 0;">✓ Utilisation illimitée</li>
-        </ul><a href="#symbols" class="btn btn-secondary" style="width: 100%; text-decoration: none;">Commencer Gratuitement</a>
-      </div>
-      <div class="card" style="border-color: #ffd700; background: rgba(255, 215, 0, 0.1);">
-        <h3 style="color: #ffd700;">Pack de Manifestation VIP</h3>
-        <div style="font-size: 3rem; color: #ff6b6b; font-weight: bold;">
-          19€
-        </div>
-        <p style="color: #999; text-decoration: line-through;">au lieu de 73€</p>
-        <ul style="list-style: none; margin: 1.5rem 0; text-align: left;">
-          <li style="padding: 0.5rem 0; color: #00ff88;">✓ Ouvrage 'SYMBOLES'</li>
-          <li style="padding: 0.5rem 0; color: #00bfff;">✓ Guide Pratique de Manifestation</li>
-          <li style="padding: 0.5rem 0; color: #ff6b6b;">✓ Oracle de Manifestation</li>
-          <li style="padding: 0.5rem 0; color: #9b59b6;">✓ Journal de Manifestation</li>
-          <li style="padding: 0.5rem 0; color: #ffd700;">✓ Manuel de Rétrocausalité</li>
+      <div class="card free-trial" style="border-color: #00bfff; background: rgba(0, 191, 255, 0.1);">
+        <h3 style="color: #00bfff; font-size: 1.8rem; margin-bottom: 0.5rem;">Accès de Base</h3>
+        <p style="font-size: 2.5rem; font-weight: bold; color: #00bfff;">0€</p>
+        <p style="color: #ccc; margin-bottom: 1rem;">Un point de départ puissant.</p>
+        <ul style="text-align: left; list-style-type: '✅ '; margin: 0 auto; max-width: 250px; padding-left: 1.5rem; line-height: 2;">
+          <li>Accès illimité à tous les outils **GRATUITS**</li>
+          <li>Générateur AI d'Intention</li>
+          <li>Générateur Legacy Date/Nom</li>
+          <li>Tous les Symboles Sacrés</li>
+          <li>Sessions Spéciales (Non Binaurales)</li>
         </ul>
-        <div id="paypal-container-19"></div>
+        <a href="#symbols" class="btn btn-primary" style="background: linear-gradient(45deg, #00bfff, #0099cc); width: 100%; margin-top: 2rem;">Accéder Maintenant (Gratuit)</a>
+      </div>
+      
+      <div class="card free-trial" style="border-color: #ff00ff; background: rgba(255, 0, 255, 0.1);">
+        <h3 style="color: #ff00ff; font-size: 1.8rem; margin-bottom: 0.5rem;">Pack de Manifestation VIP</h3>
+        <p style="font-size: 2.5rem; font-weight: bold; color: #ff00ff;">19€</p>
+        <p style="color: #ccc; margin-bottom: 1.5rem;">au lieu de 89€.</p>
+        <ul style="text-align: left; list-style-type: '✓ '; margin: 0 auto; max-width: 280px; padding-left: 1.5rem; line-height: 1.8; font-size: 0.9rem;">
+          <li>Accès aux outils gratuits</li>
+          <li>Accès à la section Premium (5 Ondes Binaurales)</li>
+          <li>Ouvrage 'SYMBOLES'</li>
+          <li>Guide Pratique de Manifestation</li>
+          <li>Oracle de Manifestation</li>
+          <li>Journal de Manifestation</li>
+          <li>Manuel de Rétrocausalité</li>
+        </ul>
+        <div id="paypal-container-19" style="margin-top: 2rem;">
+          </div>
       </div>
     </div>
+    <p style="text-align: center; color: #aaa; margin-top: 3rem;">Achat sécurisé via PayPal (lien direct) ou autres moyens de paiement.</p>
   </section>
+  
   <div id="meditationView" class="meditation-view">
-    <button class="close-btn" onclick="closeMeditation()">×</button>
-    <div class="meditation-symbol" id="meditationSymbol">
-      🌸
+    <h2 id="meditationTitle" style="color: #00bfff;"></h2>
+    <div id="meditationSymbol" class="meditation-symbol"></div>
+    <div id="timerDisplay" class="timer">00:00</div>
+    <p id="meditationFrequency" style="font-size: 1.2rem; color: #ccc; margin-bottom: 1rem;"></p>
+    <div id="audioControls" class="audio-controls">
+      <button onclick="toggleAudio()" class="btn btn-primary" id="playPauseBtn">▶️ Jouer la Fréquence</button>
+      <button onclick="stopMeditation()" class="btn btn-secondary">⏹️ Terminer la Session</button>
     </div>
-    <div class="timer" id="timer">
-      3:00
-    </div>
-    <div class="audio-controls">
-      <button class="audio-btn" onclick="toggleAudio()">▶️ Jouer</button> <button class="audio-btn" onclick="stopAudio()">⏹️ Arrêter</button>
-    </div>
-    <div>
-      <h2 style="color: #ffd700; margin-bottom: 1rem;" id="sessionTitle">Session de Méditation</h2>
-      <p id="sessionDesc">Concentrez-vous sur votre respiration.</p>
+    <div style="font-size: 0.9rem; color: #aaa; margin-top: 2rem; max-width: 80%; text-align: center;">
+      <p>💡 **Conseil :** Concentrez-vous sur le mouvement du symbole pendant 5 à 10 minutes pour optimiser l'ancrage de la fréquence.</p>
     </div>
   </div>
-  <div id="status" class="status"></div>
-  <script src="https://www.paypal.com/sdk/js?client-id=BAAU57twsTHFQ4D-cLgM-B_W1FcDqn4E2geUXRQJ6rp-E1s6uuVNGD-imJHWmG0xfQI0XaA-i-hScpK30A&amp;components=hosted-buttons&amp;disable-funding=venmo&amp;currency=EUR"></script> 
+  <div id="statusMessage" class="status"></div>
+  
   <script>
+    // Variables globales
+    let currentSymbol;
+    let currentFrequency;
+    let audioContext;
+    let oscillator;
+    let isPlaying = false;
+    let startTime;
+    let timerInterval;
+    let isOwner = false;
 
-
-        let uses1 = 999;
-        let uses2 = 999;
-        let isOwner = false;
-        let timer = null;
-        let audioContext = null;
-        // CHANGÉ : Utilisation d'un tableau pour gérer les oscillateurs (pour l'audio multi-fréquence)
-        let oscillators = []; 
-        let currentFrequency = null; // Pour les sessions à fréquence unique (méditation)
-        let currentFrequencies = []; // Pour les sessions multi-fréquences (AI Generator)
-
-        // Modal propriétaire
-        function showOwnerModal() {
-            document.getElementById('ownerModal').classList.add('show');
-        }
-
-        function closeOwnerModal() {
-            document.getElementById('ownerModal').classList.remove('show');
-        }
-
-        function checkOwnerAccess() {
-            const code = document.getElementById('ownerCode').value;
-            if (code === 'MANIFESTLAB2024' || code === 'ADMIN123' || code === 'OWNER2024') {
-                isOwner = true;
-                closeOwnerModal();
-                showStatus('🔐 Accès propriétaire activé ! Interface optimisée');
-                
-                // Marquer visuellement
-                document.querySelector('.header').style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)';
-                document.querySelector('.logo').innerHTML = '👑 Manifestation Lab - PROPRIÉTAIRE';
-                document.querySelector('.logo').style.color = '#1a1a2e';
-            } else {
-                showStatus('❌ Code incorrect');
-            }
-        }
-
-        function useSymbol(type, frequency, icon, title) {
-            // Nettoie l'état du multi-fréquence
-            currentFrequencies = [];
-            startSession(icon || '🌸', title || 'Symbole Sacré', `Méditation avec ${title} - Fréquence ${frequency} Hz`, frequency);
-        }
-
-        function useMeditation(type, frequency, icon, title) {
-             // Nettoie l'état du multi-fréquence
-            currentFrequencies = [];
-            startSession(icon || '●', title || 'Session Spéciale', `Session ${title} avec techniques spécialisées`, frequency);
-        }
-
-        function startSession(symbol, title, desc, frequency) {
-            if (timer) {
-                clearInterval(timer);
-                timer = null;
-            }
-            stopAudio(); 
-            document.querySelector('.audio-controls .audio-btn').textContent = '▶️ Jouer'; 
-            
-            document.getElementById('meditationSymbol').textContent = symbol;
-            document.getElementById('sessionTitle').textContent = title;
-            document.getElementById('sessionDesc').textContent = desc;
-            document.getElementById('meditationView').classList.add('show');
-            
-            currentFrequency = frequency;
-            let timeLeft = 180; // 3 minutes
-
-            timer = setInterval(() => {
-                let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                document.getElementById('timer').textContent = 
-                    minutes + ':' + seconds.toString().padStart(2, '0');
-                timeLeft--;
-                
-                if (timeLeft < 0) {
-                    clearInterval(timer);
-                    closeMeditation();
-                    showStatus('Session terminée ✨');
-                }
-            }, 1000);
-        }
-
-        function closeMeditation() {
-            document.getElementById('meditationView').classList.remove('show');
-            if (timer) clearInterval(timer);
-            stopAudio();
-            currentFrequency = null;
-            currentFrequencies = [];
-        }
-
-        // Audio Utilities
-        function initAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioContext.state === 'suspended') {
-                 audioContext.resume().catch(e => console.warn("L'Audio Context n'a pas pu reprendre :", e));
-            }
-        }
-
-        function stopAudio() {
-            // ARRÊT DE TOUS LES OSCILLATEURS ACTIFS (SINGLE OU MULTI)
-            if (oscillators.length > 0) {
-                oscillators.forEach(osc => {
-                    try { 
-                        if (audioContext && audioContext.state !== 'closed') {
-                             osc.stop(audioContext.currentTime);
-                             osc.disconnect();
-                        }
-                    } catch(e) {console.warn("Erreur à l'arrêt d'un oscillateur:", e);}
-                });
-                oscillators = []; // Reset the array of oscillators
-            }
-            document.querySelectorAll('.frequency-card').forEach(card => {
-                card.classList.remove('playing');
+    // --- Gestion de l'Accès Propriétaire/Premium ---
+    function checkOwnerAccess() {
+        const code = document.getElementById('ownerCode').value;
+        const correctCode = 'manifest2024'; // Code propriétaire/premium fictif
+        
+        if (code === correctCode) {
+            isOwner = true;
+            document.querySelectorAll('.locked-overlay').forEach(overlay => {
+                overlay.style.display = 'none';
             });
-             const audioBtn = document.querySelector('.audio-controls .audio-btn');
-            if(audioBtn) audioBtn.textContent = '▶️ Jouer';
-        }
-
-        // Audio simple pour les prévisualisations et sessions classiques
-        function playFrequency(frequency, isSession = false) {
-            stopAudio();
-            initAudio();
-            
-            if (frequency === 0 || frequency === undefined) {
-                 showStatus('⚠️ Cette session n\'utilise pas de fréquence Solfège spécifique.');
-                 return;
-            }
-            
-            const osc = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            osc.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            osc.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            osc.type = 'sine';
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            
-            osc.start();
-            oscillators.push(osc); // Stocke l'oscillateur
-            
-            // Animation
-            document.querySelectorAll('.frequency-card').forEach(card => {
-                card.classList.remove('playing');
-                if (card.innerHTML.includes(frequency + ' Hz')) {
-                    card.classList.add('playing');
-                }
+            document.querySelectorAll('#premium-tools .premium-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.textContent = 'Démarrer';
+                btn.style.background = 'linear-gradient(45deg, #ff00ff, #ff69b4)';
             });
-            
-            if (!isSession) {
-                showStatus(`🎵 Fréquence ${frequency} Hz en cours (preview 10s)...`);
-                setTimeout(() => stopAudio(), 10000); // Arrêt après 10s pour la preview
-            } else {
-                 showStatus(`🎵 Session en cours - Fréquence ${frequency} Hz`);
-            }
-        }
-
-        // Nouvelle fonction audio multi-fréquence pour le Générateur AI
-        function playMultiFrequencies(frequencies) {
-            stopAudio(); // Stop any existing single or multi-frequency audio
-            initAudio();
-            
-            currentFrequencies = frequencies; // Store the set
-            
-            frequencies.forEach(frequency => {
-                const osc = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                // Gain plus faible pour l'accord afin d'éviter la saturation
-                gainNode.gain.setValueAtTime(0.08, audioContext.currentTime); 
-                osc.frequency.setValueAtTime(frequency, audioContext.currentTime);
-                osc.type = 'sine';
-                
-                osc.start();
-                oscillators.push(osc); // Store the oscillator
-            });
-            
-            showStatus(`🎵 Accord [${frequencies.join(' Hz, ')} Hz] en cours (preview 15s)...`);
-            setTimeout(() => stopAudio(), 15000); // 15s preview for the AI result
-        }
-
-        function toggleAudio() {
-            const audioBtn = document.querySelector('.audio-controls .audio-btn');
-            // Check if audio is currently playing (oscillators array is not empty)
-            if (oscillators.length > 0) {
-                stopAudio();
-                audioBtn.textContent = '▶️ Jouer';
-            } else if (currentFrequency) {
-                // If a single frequency is set from startSession
-                playFrequency(currentFrequency, true); 
-                audioBtn.textContent = '⏸️ Pause';
-            } else {
-                showStatus('⚠️ Aucune fréquence Solfège associée à cette session. Audio non démarré.');
-            }
-        }
-
-        // Logique du Générateur de Fréquence d'Intention AI (modifiée)
-        function generateIntentionFrequency() {
-            const input = document.getElementById('intentionInput').value.trim().toLowerCase();
-            const resultDiv = document.getElementById('aiResult');
-            
-            if (input.length < 10) {
-                resultDiv.innerHTML = "❌ Veuillez entrer une intention plus détaillée (minimum 10 caractères).";
-                resultDiv.style.borderColor = '#ff6b6b';
-                resultDiv.style.color = '#ff6b6b';
-                return;
-            }
-
-            // AI Logic for Multi-Frequency Generation
-            let mainFrequency = 528; // Default: Love & Repair
-            let supportingFrequencies = [432, 741]; 
-            let explanation = "La vibration d'amour et de transformation résonne le mieux avec votre intention. Cette composition aligne votre cœur (528 Hz) avec l'action (741 Hz) et l'harmonie naturelle (432 Hz).";
-            let color = '#00bfff';
-
-            // LISTE ÉTENDUE DE MOTS-CLÉS
-            const financialKeywords = ['argent', 'finance', 'abondance', 'richesse', 'travail', 'prospérité', 'succès', 'réussite', 'carrière', 'salaire', 'entreprise', 'gains'];
-            const loveKeywords = ['amour', 'relation', 'partenaire', 'cœur', 'famille', 'amitié', 'lien', 'harmonie', 'mariage', 'couple'];
-            const peaceKeywords = ['calme', 'paix', 'stress', 'peur', 'lâcher-prise', 'sérénité', 'tranquillité', 'anxiété', 'détente', 'apaisement'];
-            const spiritualKeywords = ['spirituel', 'intuition', 'éveil', 'dieu', 'ascension', 'univers', 'conscience', 'âme', 'guidance', 'connexion'];
-
-            if (financialKeywords.some(keyword => input.includes(keyword))) {
-                mainFrequency = 432; // Harmonic Abundance
-                supportingFrequencies = [639, 528]; // Harmony, Love/Creation
-                explanation = "Concentrez-vous sur l'Harmonie Naturelle (432 Hz) comme base de votre abondance. Soutenu par l'Amour/Création (528 Hz) et les Relations (639 Hz), votre intention d'abondance s'ancre dans le concret et l'émotionnel.";
-                color = '#ffd700';
-            } else if (loveKeywords.some(keyword => input.includes(keyword))) {
-                mainFrequency = 528; // Love & DNA Repair
-                supportingFrequencies = [639, 852]; // Relations, Intuition
-                explanation = "L'Amour Inconditionnel (528 Hz) est la clé. L'AI y ajoute la Fréquence des Relations (639 Hz) pour l'harmonie avec autrui et l'Éveil Spirituel (852 Hz) pour une connexion profonde.";
-                color = '#ff6b6b';
-            } else if (peaceKeywords.some(keyword => input.includes(keyword))) {
-                mainFrequency = 396; // Fear Liberation
-                supportingFrequencies = [432, 741]; // Harmony, Expression/Clarity
-                explanation = "Pour la Libération des Peurs (396 Hz), nous utilisons une ancre dans l'Harmonie Naturelle (432 Hz) pour l'apaisement du système nerveux et l'Expression (741 Hz) pour clarifier l'esprit.";
-                color = '#00ff88';
-            } else if (spiritualKeywords.some(keyword => input.includes(keyword))) {
-                mainFrequency = 963; // Divine Connection
-                supportingFrequencies = [852, 528]; // Intuition, Love/Creation
-                explanation = "L'Ascension et la Connexion Divine (963 Hz) sont amplifiées par l'Éveil Spirituel (852 Hz) et la Fréquence de l'Amour (528 Hz), créant un puissant champ d'énergie d'élévation.";
-                color = '#9b59b6';
-            }
-
-            const finalFrequencies = [...new Set([mainFrequency, ...supportingFrequencies])].sort((a, b) => a - b);
-            
-            resultDiv.innerHTML = `
-                <div style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #ccc;">Résultat de l'analyse quantique de votre Intention :</div>
-                <div style="font-size: 1.8rem; color: ${color}; font-weight: bold; margin-bottom: 0.5rem;">
-                    Multi-Fréquence Harmonique
-                </div>
-                <div style="font-size: 1.4rem; color: #ffd700; margin-bottom: 1rem;">
-                    [${finalFrequencies.join(' Hz, ')} Hz]
-                </div>
-                <div style="font-size: 0.9rem; color: #aaa; text-align: center;">
-                    ${explanation}
-                </div>
-            `;
-            resultDiv.style.borderColor = color;
-            resultDiv.style.color = color;
-            
-            // DÉMARRE IMMÉDIATEMENT L'AUDIO MULTI-FRÉQUENCE
-            playMultiFrequencies(finalFrequencies);
-        }
-
-        // LOGIQUE POUR LE GÉNÉRATEUR DE SCHÉMA VIBRATOIRE PERSONNEL
-        function generateVibrationalBlueprint() {
-            const amour = document.getElementById('goal-amour').value.trim().toLowerCase();
-            const carriere = document.getElementById('goal-carriere').value.trim().toLowerCase();
-            const sante = document.getElementById('goal-sante').value.trim().toLowerCase();
-            const resultDiv = document.getElementById('blueprintResult');
-
-            if (!amour && !carriere && !sante) {
-                resultDiv.innerHTML = "❌ Veuillez entrer au moins un objectif.";
-                resultDiv.style.borderColor = '#ff6b6b';
-                resultDiv.style.color = '#ff6b6b';
-                return;
-            }
-
-            let frequencies = [];
-            let symbols = [];
-            let descriptionParts = [];
-
-            // Définir les mappings
-            const loveMap = { freqs: [528, 639], syms: ['❤️', '🔺'], desc: "L'Amour Inconditionnel (528 Hz) et la Connexion Harmonique (639 Hz) sont au cœur de votre schéma. Le symbole de la manifestation (Sri Yantra) est inclus pour ancrer vos relations." };
-            const careerMap = { freqs: [432, 852], syms: ['⭐', '🔯'], desc: "La fréquence de l'Harmonie Naturelle (432 Hz) pour l'abondance et l'Éveil Spirituel (852 Hz) pour l'intuition professionnelle sont clés. Les symboles de l'élévation (Merkaba) et de l'équilibre (Sceau) vous guident." };
-            const healthMap = { freqs: [741, 396], syms: ['🔥', '🕉️'], desc: "Pour votre santé, nous utilisons la Purification (741 Hz) et la Libération des Peurs (396 Hz) pour vous alléger. Le Triskel et le Om Sacré soutiennent votre transformation et votre unité." };
-            const defaultMap = { freqs: [528, 432, 741], syms: ['🌸', '⭐', '🔺'], desc: "Votre intention est large. Voici une combinaison puissante basée sur la Création (528 Hz), l'Harmonie (432 Hz) et l'Expression (741 Hz) avec les symboles d'Harmonie et de Manifestation pour vous soutenir." };
-
-            let blueprint = {};
-
-            // Logique de combinaison améliorée
-            let hasLove = amour.includes('amour') || amour.includes('relation') || amour.includes('cœur');
-            let hasCareer = carriere.includes('argent') || carriere.includes('finance') || carriere.includes('abondance');
-            let hasHealth = sante.includes('santé') || sante.includes('vitalité') || sante.includes('énergie');
-
-            if (hasLove) {
-                frequencies.push(...loveMap.freqs);
-                symbols.push(...loveMap.syms);
-                descriptionParts.push("Pour l'**amour**, votre schéma est ancré dans la Fréquence de l'Amour (528 Hz) et des Relations (639 Hz).");
-            }
-            if (hasCareer) {
-                frequencies.push(...careerMap.freqs);
-                symbols.push(...careerMap.syms);
-                descriptionParts.push("Pour la **carrière**, il est optimisé par la Fréquence de l'Abondance (432 Hz) et de l'Intuition (852 Hz).");
-            }
-            if (hasHealth) {
-                frequencies.push(...healthMap.freqs);
-                symbols.push(...healthMap.syms);
-                descriptionParts.push("Pour la **santé**, le schéma se concentre sur la Purification (741 Hz) et la Libération des Peurs (396 Hz).");
-            }
-
-            if (descriptionParts.length === 0) {
-                 blueprint = defaultMap;
-                 descriptionParts.push(defaultMap.desc);
-            }
-
-            const uniqueFrequencies = [...new Set(frequencies)].sort((a, b) => a - b);
-            const uniqueSymbols = [...new Set(symbols)].join(' ');
-            
-            resultDiv.innerHTML = `
-                <div style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #ccc;">Votre Schéma Vibratoire Personnel :</div>
-                <div style="font-size: 2.5rem; color: #9370db; margin-bottom: 0.5rem;">
-                    ${uniqueSymbols || defaultMap.syms.join(' ')}
-                </div>
-                <div style="font-size: 1.4rem; color: #ffd700; margin-bottom: 1rem;">
-                    [${uniqueFrequencies.length > 0 ? uniqueFrequencies.join(' Hz, ') : defaultMap.freqs.join(' Hz, ')} Hz]
-                </div>
-                <div style="font-size: 0.9rem; color: #aaa; text-align: center;">
-                    ${descriptionParts.join(' ')}
-                </div>
-            `;
-            resultDiv.style.borderColor = '#9370db';
-            resultDiv.style.color = '#9370db';
-
-            // Joue l'accord de fréquences multi-harmonique
-            playMultiFrequencies(uniqueFrequencies.length > 0 ? uniqueFrequencies : defaultMap.freqs);
-        }
-
-        function showStatus(message) {
-            const status = document.getElementById('status');
-            status.textContent = message;
-            status.style.display = 'block';
-            setTimeout(() => status.style.display = 'none', 3000);
-        }
-
-        // Navigation fluide
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) target.scrollIntoView({behavior: 'smooth'});
-            });
-        });
-
-        // Fermeture avec Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeOwnerModal();
-                closeMeditation();
-                stopAudio();
-            }
-        });
-
-        // --- LOGIQUE D'INTÉGRATION PAYPAL ---
-        function renderPayPalButtons() {
-            try {
-                // BOUTON VIP (19€) - Utilise l'ID fourni.
-                paypal.HostedButtons({
-                    hostedButtonId: "24VD5DDMWZZ7Q", 
-                }).render("#paypal-container-19");
-
-                console.log("Le bouton PayPal VIP (19€) est rendu.");
-
-            } catch (e) {
-                console.error("Erreur lors du rendu du bouton PayPal. Vérifiez le Script SDK et l'ID :", e);
-            }
-        }
-
-        // Déclenche l'affichage après le chargement du SDK
-        if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
-            renderPayPalButtons();
+            showStatus('🔓 Accès Premium Débloqué !', '#00ff88');
+            closeOwnerModal();
         } else {
-             // Fallback pour s'assurer que si le script SDK est chargé après, il appelle la fonction
-             window.addEventListener('load', () => {
-                 if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
-                     renderPayPalButtons();
-                 }
-             });
+            alert("Code incorrect.");
         }
+    }
+
+    function showPricing() {
+        // Redirige vers la section pricing ou ouvre la modale
+        if (!isOwner) {
+            document.getElementById('ownerModal').classList.add('show');
+            showStatus('🔒 Outil Premium. Entrez le code ou passez au Pack VIP.', '#ff00ff');
+        }
+    }
+    
+    function showOwnerModal() {
+        document.getElementById('ownerModal').classList.add('show');
+    }
+
+    function closeOwnerModal() {
+        document.getElementById('ownerModal').classList.remove('show');
+    }
+
+    // --- Fonctionnalité de Méditation / Symboles ---
+    function useSymbol(name, frequency, symbolContent, title) {
+        currentSymbol = symbolContent;
+        currentFrequency = frequency;
+        document.getElementById('meditationTitle').textContent = title;
+        document.getElementById('meditationFrequency').textContent = `Fréquence: ${frequency} Hz`;
+        
+        const symbolDisplay = document.getElementById('meditationSymbol');
+        symbolDisplay.innerHTML = '';
+        
+        if (symbolContent.endsWith('.png') || symbolContent.endsWith('.jpg')) {
+             // Si c'est une image (comme Fleur.png)
+            const img = document.createElement('img');
+            img.src = symbolContent;
+            img.alt = title;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'contain';
+            symbolDisplay.appendChild(img);
+            symbolDisplay.style.background = 'none'; // Désactive le background par défaut
+            symbolDisplay.style.borderRadius = '0'; // Désactive l'arrondi si l'image doit être carrée
+            symbolDisplay.style.animation = 'none'; // Désactive l'animation de rotation
+            // Réactive l'animation de rotation juste pour le symbole pour le rendre dynamique
+            setTimeout(() => symbolDisplay.style.animation = 'spin 10s linear infinite', 50);
+
+        } else {
+            // Si c'est un caractère/emoji
+            symbolDisplay.textContent = symbolContent;
+            symbolDisplay.style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)'; // Rétablit le style de fond
+            symbolDisplay.style.borderRadius = '50%';
+            symbolDisplay.style.animation = 'spin 3s linear infinite';
+        }
+
+        document.getElementById('meditationView').classList.add('show');
+        resetTimer();
+        stopAudio(); // Assure que tout audio précédent est arrêté
+    }
+
+    function useMeditation(name, frequency, symbolContent, title) {
+        if (!isOwner && name !== 'stress' && name !== 'boost' && name !== 'detente' && name !== 'coeur' && name !== 'focus' && name !== 'lacher-prise') {
+            showPricing();
+            return;
+        }
+        useSymbol(name, frequency, symbolContent, title);
+    }
+
+
+    // --- Fonctionnalité Audio (Générateur de Ton Pur) ---
+    function playPureTone(frequency, title, duration = 600000) { // 10 minutes par défaut pour les outils non-meditation
+        // Définir la durée de la session principale à 5 minutes (300 000 ms)
+        const sessionDurationMs = 300000;
+        
+        // La durée réelle est de 5 minutes si la durée passée est 0 (sessions principales),
+        // sinon c'est la durée passée (e.g., 12s pour les tests Solfège)
+        const actualDurationMs = duration === 0 ? sessionDurationMs : duration;
+        
+        // Arrête tout son en cours
+        stopAudio();
+        
+        currentFrequency = frequency;
+        
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            oscillator = audioContext.createOscillator();
+            
+            // Si c'est une fréquence isochronique ou binaurale
+            if (frequency < 40) {
+                 // Générer un battement isochronique simple pour la démo
+                 oscillator.type = 'square'; 
+                 oscillator.frequency.setValueAtTime(432, audioContext.currentTime); // Fréquence porteuse
+                 
+                 const gainNode = audioContext.createGain();
+                 gainNode.gain.setValueAtTime(0, audioContext.currentTime); // Commence muet
+                 
+                 const period = 1 / frequency; // Période du battement
+                 const now = audioContext.currentTime;
+                 
+                 // Création d'une enveloppe de gain pulsée pour simuler isochronique (simplifié)
+                 for (let t = 0; t < actualDurationMs / 1000; t += period) {
+                    gainNode.gain.setValueAtTime(1, now + t);
+                    gainNode.gain.setValueAtTime(0, now + t + period / 2); // Demi-période ON/OFF
+                 }
+                 
+                 oscillator.connect(gainNode);
+                 gainNode.connect(audioContext.destination);
+
+            } else {
+                 // Fréquence Solfège ou autre pure tone
+                 oscillator.type = 'sine';
+                 oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                 oscillator.connect(audioContext.destination);
+            }
+
+            oscillator.start();
+            isPlaying = true;
+
+            showStatus(`🎵 Lecture: ${title} (${frequency} Hz)`, '#00ff88');
+            
+            // Arrêter après la durée
+            if (actualDurationMs > 0) { // Utiliser actualDurationMs
+                const stopTime = audioContext.currentTime + actualDurationMs / 1000;
+                
+                oscillator.stop(stopTime);
+                oscillator.onended = () => {
+                    stopAudio();
+                    // Ajout de la logique de fin de session uniquement si c'était une session principale (duration === 0)
+                    if (duration === 0) {
+                         stopMeditation(); // Stoppe la vue + minuteur
+                         showStatus('✅ Session de 5 minutes terminée !', '#ffd700');
+                         alert("Session de 5 minutes terminée !"); // Ajout de l'alerte
+                    } else {
+                         showStatus('▶️ Lecture terminée.', '#ffd700');
+                    }
+                };
+            }
+
+        } catch(e) {
+            showStatus('⚠️ Erreur: L\'audio doit être lancé par un clic utilisateur.', '#ff6b6b');
+            console.error(e);
+        }
+    }
+    
+    function toggleAudio() {
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        if (isPlaying) {
+            stopAudio();
+            playPauseBtn.textContent = '▶️ Jouer la Fréquence';
+            // Stop the timer when audio is paused/stopped (Manual pause)
+            clearInterval(timerInterval); // <-- Ceci est correct pour la pause manuelle
+        } else {
+            // Dans le contexte de la vue méditation, on joue la fréquence du symbole actuel
+            playPureTone(currentFrequency, document.getElementById('meditationTitle').textContent, 0); 
+            playPauseBtn.textContent = '⏸️ Pause';
+            
+            // FIX POUR LE MINUTEUR BINUARAL: 
+            // On retarde le démarrage du minuteur de 100ms. Cela donne le temps 
+            // à l'oscillateur (s'il échoue instantanément sur les basses fréquences) 
+            // de lancer son événement 'onended' et de s'arrêter AVANT que le timer 
+            // ne soit lancé, évitant ainsi un conflit.
+            setTimeout(() => {
+                if (isPlaying) { // Vérifie si la session n'a pas été arrêtée durant le délai
+                    startTimer();
+                } else {
+                    // Si isPlaying est false, l'audio a échoué ou s'est arrêté immédiatement.
+                    playPauseBtn.textContent = '▶️ Jouer la Fréquence'; 
+                    showStatus('⚠️ Échec du démarrage de l\'audio. Réessayez.', '#ff6b6b');
+                }
+            }, 100); 
+        }
+    }
+
+    function stopAudio() {
+        if (oscillator) {
+            oscillator.stop();
+            oscillator.disconnect();
+            oscillator = null;
+        }
+        if (audioContext && audioContext.close) {
+            audioContext.close();
+            audioContext = null;
+        }
+        isPlaying = false;
+        // Ensure the timer stops when audio stops from any source (onended, manual stop)
+        clearInterval(timerInterval); 
+    }
+    
+    function stopMeditation() {
+        stopAudio();
+        document.getElementById('meditationView').classList.remove('show');
+        resetTimer();
+    }
+
+    // --- Fonctionnalité Timer ---
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        const elapsedTime = Date.now() - startTime;
+        const totalSeconds = Math.floor(elapsedTime / 1000);
+        
+        // Arrêter le minuteur après 300 secondes (5 minutes) - Agit comme filet de sécurité
+        if (totalSeconds >= 300) { 
+            stopMeditation(); 
+            return;
+        }
+
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        document.getElementById('timerDisplay').textContent = `${minutes}:${seconds}`;
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        document.getElementById('timerDisplay').textContent = '00:00';
+    }
+
+    // --- Générateur Fréquence Intention AI ---
+    function generateIntentionFrequency() {
+         const intention = document.getElementById('intentionInput').value.trim();
+         if (intention.length < 5) {
+             alert("Veuillez entrer une intention complète (minimum 5 caractères).");
+             return;
+         }
+         
+         const resultDiv = document.getElementById('aiResult');
+         resultDiv.innerHTML = '<span style="color: #00bfff;">Analyse en cours...</span>';
+         
+         // Simulation d'une analyse AI complexe de 12 secondes
+         const analysisDuration = 12000;
+         let secondsLeft = analysisDuration / 1000;
+         
+         const analysisInterval = setInterval(() => {
+             secondsLeft--;
+             if (secondsLeft > 0) {
+                 resultDiv.innerHTML = `<span style="color: #00bfff;">Analyse en cours... (${secondsLeft}s restants)</span>`;
+             } else {
+                 clearInterval(analysisInterval);
+                 
+                 // Simuler un calcul basé sur la longueur du texte
+                 const hash = intention.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                 const baseFreq = 396;
+                 const customFreq = baseFreq + (hash % 500); // Génère une fréquence entre 396 et 895 Hz
+                 
+                 const frequency = customFreq % 9 !== 0 ? customFreq : customFreq + 1; // Éviter les multiples de 9 pour la démo
+                 const title = `Accord Vibratoire pour: "${intention.substring(0, 20)}..."`;
+                 
+                 resultDiv.innerHTML = `
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #00ff88; margin-bottom: 0.5rem;">Fréquence d'Alignement Calculée: ${frequency} Hz</h2>
+                    <p style="font-size: 0.9rem; color: #ccc;">Votre intention a été alignée. Concentrez-vous.</p>
+                 `;
+                 
+                 // Lancer le son pur (10 minutes)
+                 playPureTone(frequency, title, 600000); 
+             }
+         }, 1000);
+    }
+    
+    // --- Générateur Schéma Vibratoire Personnel AI ---
+    function generateVibrationalBlueprint() {
+         if (!isOwner) {
+            showPricing();
+            return;
+         }
+         
+         const goalAmour = document.getElementById('goal-amour').value.trim();
+         const goalCarriere = document.getElementById('goal-carriere').value.trim();
+         const goalSante = document.getElementById('goal-sante').value.trim();
+
+         if (!goalAmour || !goalCarriere || !goalSante) {
+            alert("Veuillez entrer au moins un objectif dans chaque catégorie.");
+            return;
+         }
+         
+         const goals = [goalAmour, goalCarriere, goalSante].filter(g => g.length > 0);
+         const resultDiv = document.getElementById('blueprintResult');
+         resultDiv.innerHTML = '<span style="color: #9370db;">Création du Schéma...</span>';
+
+         const analysisDuration = 12000;
+         let secondsLeft = analysisDuration / 1000;
+         
+         const analysisInterval = setInterval(() => {
+             secondsLeft--;
+             if (secondsLeft > 0) {
+                 resultDiv.innerHTML = `<span style="color: #9370db;">Création du Schéma... (${secondsLeft}s restants)</span>`;
+             } else {
+                 clearInterval(analysisInterval);
+
+                 // Simulation de la combinaison AI (Symboles et Fréquences)
+                 const symbols = ['Fleur de Vie', 'Sri Yantra', 'Merkaba', 'Œil d\'Horus'];
+                 const frequencies = ['528 Hz', '432 Hz', '963 Hz', '741 Hz', '111 Hz', '40 Hz'];
+                 
+                 const symbol1 = symbols[Math.floor(Math.random() * symbols.length)];
+                 const symbol2 = symbols[Math.floor(Math.random() * symbols.length)];
+                 const freq1 = frequencies[Math.floor(Math.random() * frequencies.length)];
+                 const freq2 = frequencies[Math.floor(Math.random() * frequencies.length)];
+                 
+                 resultDiv.innerHTML = `
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #ff00ff; margin-bottom: 0.5rem;">Schéma Vibratoire Personnel Prêt !</h2>
+                    <p style="font-size: 1rem; color: #ccc; margin-bottom: 0.5rem;"><strong>Symbole Fondamental :</strong> ${symbol1} (Pour ${goalAmour.substring(0, 15)}...)</p>
+                    <p style="font-size: 1rem; color: #ccc; margin-bottom: 0.5rem;"><strong>Symbole Moteur :</strong> ${symbol2} (Pour ${goalCarriere.substring(0, 15)}...)</p>
+                    <p style="font-size: 1rem; color: #ccc; margin-bottom: 1rem;"><strong>Accord de Fréquence :</strong> Combinaison de ${freq1} et ${freq2}</p>
+                    <button onclick="showStatus('Vous pouvez maintenant utiliser ces éléments dans vos méditations!', '#00ff88')" class="btn btn-primary" style="background: linear-gradient(45deg, #ff00ff, #ff87ff);">Voir les Recommandations</button>
+                 `;
+             }
+         }, 1000);
+    }
+    
+    // --- Générateur Legacy (Numérologie) ---
+    function calculateLegacyFrequencies() {
+        const name = document.getElementById('nameInput').value.trim().toUpperCase();
+        const dob = document.getElementById('dobInput').value;
+
+        if (!name || !dob) {
+            alert("Veuillez entrer votre nom et votre date de naissance.");
+            return;
+        }
+
+        const resultDiv = document.getElementById('legacyResult');
+        resultDiv.innerHTML = '<span style="color: #ff6b6b;">Calcul en cours...</span>';
+
+        // Simulation de calculs de numérologie simplifiés (fréquences Legacy)
+        const alphabetValues = {
+            'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9,
+            'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'O': 6, 'P': 7, 'Q': 8, 'R': 9,
+            'S': 1, 'T': 2, 'U': 3, 'V': 4, 'W': 5, 'X': 6, 'Y': 7, 'Z': 8, ' ': 0
+        };
+
+        const reduce = (number) => {
+            let sum = number;
+            while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+                sum = String(sum).split('').reduce((s, digit) => s + parseInt(digit), 0);
+            }
+            return sum;
+        };
+
+        const nameSum = name.split('').reduce((sum, char) => sum + (alphabetValues[char] || 0), 0);
+        const dobSum = dob.split('-').map(Number).reduce((sum, part) => sum + reduce(part), 0);
+
+        const lifePath = reduce(reduce(nameSum) + reduce(dobSum)); // Simplification extrême
+        const soulUrge = reduce(nameSum * 10); // Autre simplification
+        
+        // Mapping simplifié aux fréquences (Fictif)
+        const freqMap = { 1: 528, 2: 432, 3: 741, 4: 852, 5: 396, 6: 639, 7: 963, 8: 111, 9: 40 };
+
+        const freqVie = freqMap[lifePath] || 528;
+        const freqAme = freqMap[soulUrge % 9 + 1] || 432; 
+
+        resultDiv.innerHTML = `
+            <h2 style="font-size: 1.2rem; font-weight: bold; color: #ff6b6b; margin-bottom: 1rem;">Vos Fréquences Personnelles (Legacy) :</h2>
+            <div class="frequency-item">
+                <p>Chemin de Vie (${lifePath}) :</p>
+                <p style="font-weight: bold; color: #ffd700;">${freqVie} Hz</p>
+            </div>
+            <div class="frequency-item">
+                <p>Vibration de l'Âme :</p>
+                <p style="font-weight: bold; color: #ffd700;">${freqAme} Hz</p>
+            </div>
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 1rem;">Cliquez sur une fréquence dans la section Solfège pour l'écouter.</p>
+        `;
+        showStatus('✅ Calcul terminé.', '#00ff88');
+    }
+    
+
+    // --- Fonctionnalité Status (Notifications) ---
+    function showStatus(message, color) {
+        const statusDiv = document.getElementById('statusMessage');
+        statusDiv.textContent = message;
+        statusDiv.style.background = color || '#00ff88';
+        statusDiv.style.display = 'block';
+        
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    // --- Initialisation PayPal ---
+
+    // Fonction pour tenter de rendre les boutons PayPal
+    function renderPayPalButtons() {
+        if (isOwner) return; // Ne pas afficher si l'accès est déjà débloqué
+        try {
+            // BOUTON VIP (19€) - Utilise l'ID fourni.
+            paypal.HostedButtons({
+                hostedButtonId: "24VD5DDMWZZ7Q", 
+            }).render("#paypal-container-19");
+
+            console.log("Le bouton PayPal VIP (19€) est rendu.");
+
+        } catch (e) {
+            console.error("Erreur lors du rendu du bouton PayPal. Vérifiez le Script SDK et l'ID :", e);
+        }
+    }
+
+    // Déclenche l'affichage après le chargement du SDK
+    if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
+        renderPayPalButtons();
+    } else {
+         // Fallback pour s'assurer que si le script SDK est chargé après, il appelle la fonction
+         window.addEventListener('load', () => {
+             if (typeof paypal !== 'undefined' && typeof paypal.HostedButtons === 'function') {
+                 renderPayPalButtons();
+                 // Verrouille les outils Premium au chargement
+                 document.querySelectorAll('#premium-tools .premium-btn').forEach(btn => btn.disabled = true);
+             }
+         });
+    }
+    
+    // Initialisation (pour s'assurer que les outils Premium sont verrouillés par défaut)
+    document.addEventListener('DOMContentLoaded', () => {
+         document.querySelectorAll('#premium-tools .premium-btn').forEach(btn => btn.disabled = true);
+    });
   </script>
 </body>
 </html>
