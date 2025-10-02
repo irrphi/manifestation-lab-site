@@ -899,14 +899,14 @@
           <li>Oracle de Manifestation</li>
           <li>Journal de Manifestation</li>
           <li>Manuel de Rétrocausalité</li>
-        </ul>   
-      <div id="payhip-container" style="max-width: 350px; margin: 2rem auto 1rem;">
-        <div class="payhip-embed-page" data-key="OdokJ">
-            </div>
+        </ul>
+        
+        <a href="https://payhip.com/b/OdokJ" data-payhip-product="OdokJ" target="_blank" class="btn btn-primary" style="background: linear-gradient(45deg, #ff00ff, #ff69b4); width: 100%; margin-top: 2rem;">
+            ACHETER LE PACK VIP (22€)
+        </a>
+        <a href="#" onclick="showOwnerModal(); return false;" class="btn btn-secondary" style="margin-top: 1.5rem;">J'ai déjà mon accès VIP</a>
       </div>
-      <script type="text/javascript" src="https://payhip.com/embed-page.js?v=24u68994"></script>
-
-      <a href="#" onclick="showUnlockModal(); return false;" class="btn btn-secondary" style="margin-top: 1.5rem;">J'ai déjà mon accès VIP</a>
+    </div>
   </section>
   
   <div id="meditationView" class="meditation-view">
@@ -1329,22 +1329,38 @@
             statusDiv.style.display = 'none';
         }, 3000);
     }
-
-    Statut
-  </div>
-    <section id="pricing" class="content-section">
-        <div class="container">
-            <h1>Accès Premium VIP</h1>
-            
-            <h2>Pack de Manifestation VIP</h2>
-            <p style="font-size: 1.5rem; color: #00ff88; margin-bottom: 1rem;">Prix : 22 € TTC</p> 
-            <p>Accès à vie à tous les outils premium (Ondes Binaurales), guides, ebooks, et symboles sacrés. Le code secret VIP vous sera envoyé par email immédiatement après l'achat.</p>
-
-            <div id="payhip-container" style="max-width: 350px; margin: 1.5rem auto; padding: 1rem; border: 1px dashed #ffd700; border-radius: 5px;">
-                <div class="payhip-embed-page" data-key="OdokJ">...</div><script type="text/javascript" src="https://payhip.com/embed-page.js?v=24u68984"></script>
-                </div>
-            </div>
-        
   </script>
+  
+  <script>
+let payhipLoaded = false;
+function loadPayhipScript() {
+  if (payhipLoaded) return;
+  const script = document.createElement('script');
+  script.src = 'https://payhip.com/embed-page.js?v=' + Date.now();
+  script.async = true;
+  script.onload = function() {
+    payhipLoaded = true;
+    // Note: payhip-loading and payhip-embed are not used in the new simple button method, but keeping the logic here is safe.
+    // document.getElementById('payhip-loading').style.display = 'none';
+    // document.getElementById('payhip-embed').classList.add('loaded');
+  };
+  script.onerror = function() {
+    // Note: payhip-loading is not used in the new simple button method, but keeping the error logic here is safe.
+    // document.getElementById('payhip-loading').innerHTML = '<p style="color: #ff6b6b;">⚠️ Erreur. <a href="#" onclick="location.reload()" style="color: #00ff88;">Rafraîchir</a></p>';
+  };
+  document.body.appendChild(script);
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !payhipLoaded) {
+      loadPayhipScript();
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.1 });
+const pricingSection = document.getElementById('pricing');
+if (pricingSection) observer.observe(pricingSection);
+setTimeout(() => { if (!payhipLoaded) loadPayhipScript(); }, 3000);
+</script>
 </body>
 </html>
