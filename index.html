@@ -663,6 +663,9 @@
       <div id="aiResult" style="margin-top: 2rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #ffd700; color: #ffd700; font-size: 1.2rem; font-weight: bold; min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         Le résultat de l'analyse s'affichera ici et le son jouera automatiquement.
       </div>
+      <div id="aiStopBtnContainer" style="display: none; text-align: center; margin-top: 1.5rem;">
+          <button onclick="stopAudio()" class="btn btn-primary" style="background: linear-gradient(45deg, #ff6b6b, #ee5a52); width: 100%;">⏹️ Arrêter le son</button>
+      </div>
     </div>
   </section>
   <section id="vibrational-blueprint-generator" class="section">
@@ -1095,6 +1098,9 @@
                          stopMeditation(); // Stoppe la vue + minuteur
                          showStatus('✅ Session de 5 minutes terminée !', '#ffd700');
                          alert("Session de 5 minutes terminée !"); // Ajout de l'alerte
+                    } else if (duration === 300000) {
+                         // Fin automatique après 5 minutes pour l'outil AI
+                         showStatus('▶️ Lecture AI terminée après 5 minutes.', '#ffd700');
                     } else {
                          showStatus('▶️ Lecture terminée.', '#ffd700');
                     }
@@ -1149,6 +1155,12 @@
         isPlaying = false;
         // Ensure the timer stops when audio stops from any source (onended, manual stop)
         clearInterval(timerInterval); 
+
+        // Nouveau: Masquer le bouton d'arrêt du générateur AI
+        const aiStopBtnContainer = document.getElementById('aiStopBtnContainer');
+        if (aiStopBtnContainer) {
+             aiStopBtnContainer.style.display = 'none';
+        }
     }
     
     function stopMeditation() {
@@ -1194,6 +1206,9 @@
          const resultDiv = document.getElementById('aiResult');
          resultDiv.innerHTML = '<span style="color: #00bfff;">Analyse en cours...</span>';
          
+         // Masquer le bouton d'arrêt pendant l'analyse
+         document.getElementById('aiStopBtnContainer').style.display = 'none';
+
          // Simulation d'une analyse AI complexe de 12 secondes
          const analysisDuration = 12000;
          let secondsLeft = analysisDuration / 1000;
@@ -1218,18 +1233,21 @@
                     <p style="font-size: 0.9rem; color: #ccc;">Votre intention a été alignée. Concentrez-vous.</p>
                  `;
                  
-                 // Lancer le son pur (10 minutes)
-                 playPureTone(frequency, title, 600000); 
+                 // Lancer le son pur (5 minutes = 300000 ms)
+                 playPureTone(frequency, title, 300000); 
+                 // Afficher le bouton d'arrêt
+                 document.getElementById('aiStopBtnContainer').style.display = 'block';
              }
          }, 1000);
     }
     
     // --- Générateur Schéma Vibratoire Personnel AI ---
     function generateVibrationalBlueprint() {
-         if (!isOwner) {
-            showPricing();
-            return;
-         }
+        // Modification demandée: Retrait de la vérification Premium. L'outil est maintenant GRATUIT.
+        // if (!isOwner) {
+        //    showPricing();
+        //    return;
+        // }
          
          const goalAmour = document.getElementById('goal-amour').value.trim();
          const goalCarriere = document.getElementById('goal-carriere').value.trim();
