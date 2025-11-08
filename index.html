@@ -362,6 +362,58 @@
             cursor: pointer;
             transition: all 0.3s;
         }
+        /* --- Styles Spécifiques au Générateur de Tonalité Personnalisé (Ajouté) --- */
+        .generator-container-custom {
+            max-width: 400px;
+            margin: 20px auto 40px; /* Ajoute de l'espace */
+            padding: 20px;
+            border: 1px solid #ff6b6b; /* Bordure rouge/rose pour s'accorder au thème des bonus */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5); /* Ombre douce */
+            background: rgba(255, 107, 107, 0.1); /* Fond léger */
+        }
+        .control-group-custom { margin-bottom: 15px; }
+        .generator-container-custom label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold; 
+            color: #ffd700; /* Texte or */
+        }
+        .generator-container-custom input[type="number"], 
+        .generator-container-custom select { 
+            width: 100%; 
+            padding: 10px; 
+            box-sizing: border-box; 
+            border: 1px solid #ff6b6b; 
+            border-radius: 8px; 
+            background: #1a1a2e; /* Fond sombre */
+            color: white; /* Texte blanc */
+            font-size: 1rem;
+        }
+        .generator-container-custom button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        #startButtonCustom { 
+            background: linear-gradient(45deg, #00ff88, #00cc6a); /* Vert néon */
+            color: #1a1a2e; 
+        }
+        #stopButtonCustom { 
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52); /* Rouge/rose */
+            color: white; 
+            margin-top: 10px; 
+        }
+        #startButtonCustom:disabled, #stopButtonCustom:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
   </style>
  </script>
 </head>
@@ -699,6 +751,28 @@
   
   <section id="ai-exauceur" class="section">
     <h2 class="section-title">Bonus à tester</h2>
+    
+    <div class="generator-container-custom">
+        <h3 style="color: #00bfff; text-align: center; margin-bottom: 1rem;">🎵 Générateur de Tonalité Personnalisé</h3>
+    
+        <div class="control-group-custom">
+            <label for="frequencyInputCustom">Fréquence (Hz) :</label>
+            <input type="number" id="frequencyInputCustom" value="369" min="20" max="20000">
+        </div>
+    
+        <div class="control-group-custom">
+            <label for="waveformSelectCustom">Forme d'onde :</label>
+            <select id="waveformSelectCustom">
+                <option value="sine">Sinusoïdale (Pure)</option>
+                <option value="square">Carrée (Riche en harmoniques)</option>
+                <option value="sawtooth">Scie (Métallique)</option>
+                <option value="triangle">Triangle (Plus douce)</option>
+            </select>
+        </div>
+    
+        <button id="startButtonCustom">Démarrer le Son</button>
+        <button id="stopButtonCustom" disabled>Arrêter le Son</button>
+    </div>
     <div style="background: rgba(255, 107, 107, 0.1); padding: 1.5rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 107, 107, 0.3);">
         <h4 style="color: #ff6b6b; margin-bottom: 1rem; text-align: center;">Fréquences Solfège & Leurs Bienfaits</h4>
         <div class="frequency-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
@@ -775,7 +849,7 @@
   
   <section id="premium-tools" class="section">
     <h2 class="section-title">⭐ Outils Premium Avancés ⭐</h2>
-    <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 2rem; background: rgba(255, 0, 255, 0.1); border-radius: 15px; border: 1px solid #ff00ff;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem; padding: 2rem; background: rgba(255, 0, 255, 0.1); border-radius: 15px; border: 1px solid #ff00ff;">
       <p style="color: #ccc; margin-bottom: 1.5rem;">Accédez à des outils exclusifs pour démultiplier vos capacités de manifestation. Ces sessions utilisent des fréquences isochroniques et binaurales pour une immersion et un impact maximum. </p>
     </div>
     <div class="grid">
@@ -1161,6 +1235,11 @@
         if (aiStopBtnContainer) {
              aiStopBtnContainer.style.display = 'none';
         }
+        
+        // S'assurer d'arrêter aussi le générateur personnalisé
+        if (oscillatorCustom) {
+            stopOscillatorCustom();
+        }
     }
     
     function stopMeditation() {
@@ -1359,6 +1438,103 @@
             statusDiv.style.display = 'none';
         }, 3000);
     }
+    
+    
+    // --- Début des fonctions du Générateur Personnalisé (Ajouté) ---
+
+    let audioContextCustom;
+    let oscillatorCustom;
+
+    // Récupération des éléments du DOM
+    // J'utilise une vérification simple ici au cas où le script s'exécute avant que le DOM ne soit complètement chargé
+    const startButtonCustom = document.getElementById('startButtonCustom');
+    const stopButtonCustom = document.getElementById('stopButtonCustom');
+    const frequencyInputCustom = document.getElementById('frequencyInputCustom');
+    const waveformSelectCustom = document.getElementById('waveformSelectCustom');
+
+    function startOscillatorCustom() {
+        // S'assurer que l'audio de la session principale est arrêté
+        stopAudio(); 
+        
+        // Initialise l'AudioContext si ce n'est pas déjà fait
+        if (!audioContextCustom) {
+            audioContextCustom = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        // Crée un nouvel oscillateur (générateur de tonalité)
+        oscillatorCustom = audioContextCustom.createOscillator();
+
+        // Récupère les valeurs de l'interface
+        const frequency = parseFloat(frequencyInputCustom.value) || 369;
+        const waveform = waveformSelectCustom.value;
+
+        // Configure l'oscillateur
+        oscillatorCustom.type = waveform;
+        oscillatorCustom.frequency.setValueAtTime(frequency, audioContextCustom.currentTime);
+
+        // Crée un gain node (pour le volume) et le connecte
+        const gainNode = audioContextCustom.createGain();
+        gainNode.gain.setValueAtTime(0.5, audioContextCustom.currentTime); // Volume à 50%
+        
+        // Connexion : Oscillateur -> Gain -> Destination
+        oscillatorCustom.connect(gainNode);
+        gainNode.connect(audioContextCustom.destination);
+
+        // Démarre l'oscillation et la lecture
+        oscillatorCustom.start();
+        
+        showStatus(`🎵 Lecture Générateur: ${frequency} Hz (${waveform})`, '#00ff88');
+
+        // Met à jour l'état des boutons
+        startButtonCustom.disabled = true;
+        stopButtonCustom.disabled = false;
+    }
+
+    function stopOscillatorCustom() {
+        if (oscillatorCustom) {
+            // Arrête l'oscillation
+            oscillatorCustom.stop(audioContextCustom.currentTime + 0.05);
+            oscillatorCustom.disconnect();
+            oscillatorCustom = null;
+        }
+        if (audioContextCustom) {
+            // Ferme le contexte audio
+            audioContextCustom.close();
+            audioContextCustom = null;
+        }
+
+        // Met à jour l'état des boutons
+        startButtonCustom.disabled = false;
+        stopButtonCustom.disabled = true;
+        showStatus('⏹️ Générateur arrêté.', '#ffd700');
+    }
+
+    // Ajout des écouteurs d'événements aux boutons
+    if (startButtonCustom && stopButtonCustom) {
+        startButtonCustom.addEventListener('click', startOscillatorCustom);
+        stopButtonCustom.addEventListener('click', stopOscillatorCustom);
+
+        // Fonctionnalité: mettre à jour la fréquence en temps réel si le son est déjà en cours
+        frequencyInputCustom.addEventListener('input', () => {
+            if (oscillatorCustom) {
+                const newFrequency = parseFloat(frequencyInputCustom.value);
+                if (!isNaN(newFrequency) && newFrequency >= 20 && newFrequency <= 20000) {
+                    // Changement de fréquence plus doux
+                    oscillatorCustom.frequency.linearRampToValueAtTime(newFrequency, audioContextCustom.currentTime + 0.1); 
+                }
+            }
+        });
+
+        // Fonctionnalité: gérer le changement de forme d'onde 
+        waveformSelectCustom.addEventListener('change', () => {
+            if (oscillatorCustom) {
+                // Redémarrer pour assurer une compatibilité maximale
+                stopOscillatorCustom();
+                startOscillatorCustom();
+            }
+        });
+    }
+    // --- Fin des fonctions du Générateur Personnalisé ---
   </script>
   
   <script>
